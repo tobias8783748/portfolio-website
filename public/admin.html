@@ -50,6 +50,86 @@
             background: #007bff;
             color: white;
         }
+        .upload-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border: 1px solid #e9ecef;
+        }
+        .upload-section h3 {
+            margin: 0 0 20px 0;
+            color: #333;
+            font-size: 18px;
+        }
+        .upload-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            align-items: end;
+        }
+        .form-group {
+            margin-bottom: 0;
+        }
+        .form-group label {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            font-size: 14px;
+            padding: 8px;
+        }
+        .upload-btn {
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .upload-btn:hover {
+            background: #218838;
+        }
+        .upload-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        .file-input {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        .file-input-label {
+            display: block;
+            padding: 8px 12px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        .file-input-label:hover {
+            border-color: #007bff;
+            color: #007bff;
+        }
+        .file-selected {
+            border-color: #28a745;
+            color: #28a745;
+            background: #f8fff9;
+        }
         .image-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -132,6 +212,54 @@
             <a href="/upload.html" class="nav-link">Bulk Upload</a>
             <a href="/" class="nav-link">View Gallery</a>
         </div>
+        
+        <!-- Single Upload Section -->
+        <div class="upload-section">
+            <h3>📁 Upload Single Image</h3>
+            <form id="singleUploadForm" class="upload-form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="imageFile">Select Image:</label>
+                    <div class="file-input-wrapper">
+                        <input type="file" id="imageFile" name="image" accept="image/*" class="file-input" required>
+                        <label for="imageFile" class="file-input-label" id="fileLabel">Choose Image File</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="country">Country:</label>
+                    <select id="country" name="country" required>
+                        <option value="">Select Country</option>
+                        <option value="Japan">Japan</option>
+                        <option value="Peru">Peru</option>
+                        <option value="Iceland">Iceland</option>
+                        <option value="Norway">Norway</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Location:</label>
+                    <input type="text" id="location" name="location" placeholder="e.g., Tokyo, Hokkaido" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tags">Tags (comma-separated):</label>
+                    <input type="text" id="tags" name="tags" placeholder="e.g., landscape, nature, city">
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" placeholder="Brief description of the image..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="upload-btn" id="uploadBtn">
+                        Upload Image
+                    </button>
+                </div>
+            </form>
+        </div>
+        
         <div id="status"></div>
         <div id="images-container">
             <p>Loading images...</p>
@@ -269,6 +397,75 @@
                 status.innerHTML = '';
             }, 3000);
         }
+
+        // Single upload functionality
+        document.getElementById('imageFile').addEventListener('change', function(e) {
+            const fileLabel = document.getElementById('fileLabel');
+            if (e.target.files.length > 0) {
+                fileLabel.textContent = e.target.files[0].name;
+                fileLabel.classList.add('file-selected');
+            } else {
+                fileLabel.textContent = 'Choose Image File';
+                fileLabel.classList.remove('file-selected');
+            }
+        });
+
+        document.getElementById('singleUploadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            const imageFile = document.getElementById('imageFile').files[0];
+            const country = document.getElementById('country').value;
+            const location = document.getElementById('location').value;
+            const tags = document.getElementById('tags').value;
+            const description = document.getElementById('description').value;
+            
+            if (!imageFile) {
+                showStatus('Please select an image file', 'error');
+                return;
+            }
+            
+            if (!country || !location) {
+                showStatus('Please fill in required fields (Country and Location)', 'error');
+                return;
+            }
+            
+            formData.append('image', imageFile);
+            formData.append('country', country);
+            formData.append('location', location);
+            formData.append('tags', tags);
+            formData.append('description', description);
+            
+            const uploadBtn = document.getElementById('uploadBtn');
+            uploadBtn.disabled = true;
+            uploadBtn.textContent = 'Uploading...';
+            
+            try {
+                const response = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showStatus('Image uploaded successfully!', 'success');
+                    // Reset form
+                    document.getElementById('singleUploadForm').reset();
+                    document.getElementById('fileLabel').textContent = 'Choose Image File';
+                    document.getElementById('fileLabel').classList.remove('file-selected');
+                    // Reload images to show the new one
+                    loadImages();
+                } else {
+                    showStatus('Error: ' + result.error, 'error');
+                }
+            } catch (error) {
+                showStatus('Upload failed: ' + error.message, 'error');
+            } finally {
+                uploadBtn.disabled = false;
+                uploadBtn.textContent = 'Upload Image';
+            }
+        });
 
         // Load images when page loads
         loadImages();
