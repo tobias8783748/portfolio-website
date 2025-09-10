@@ -562,6 +562,89 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
 	}
 });
 
+// Bulk upload endpoint
+app.post('/api/bulk-upload', upload.array('images', 50), async (req, res) => {
+	try {
+		if (!req.files || req.files.length === 0) {
+			return res.status(400).json({ error: 'No image files provided' });
+		}
+
+		const { defaultCountry, defaultLocation, defaultTags, defaultDescription } = req.body;
+		
+		// Validate required fields
+		if (!defaultLocation || defaultLocation.trim() === '') {
+			return res.status(400).json({ error: 'Default location is required' });
+		}
+		
+		const basePath = process.env.RENDER ? '/opt/render/project/src/public/images' : path.join(__dirname, 'public', 'images');
+		const countryDir = path.join(basePath, defaultCountry || 'Unknown');
+		if (!fs.existsSync(countryDir)) {
+			fs.mkdirSync(countryDir, { recursive: true });
+		}
+		
+		const uploadedImages = [];
+		const errors = [];
+		
+		// Process each file
+		for (let i = 0; i < req.files.length; i++) {
+			const file = req.files[i];
+			try {
+				const filename = file.filename;
+				const tempFilePath = file.path;
+				
+				// Generate unique ID from filename
+				const id = path.parse(filename).name;
+				
+				// Move file from temp to country folder
+				const finalFilePath = path.join(countryDir, filename);
+				fs.renameSync(tempFilePath, finalFilePath);
+				
+				// Prepare image data with defaults
+				const imageData = {
+					id: id,
+					filename: filename,
+					country: defaultCountry || 'Unknown',
+					location: defaultLocation || 'Unknown',
+					description: defaultDescription || '',
+					tags: defaultTags ? defaultTags.split(',').map(t => t.trim()).filter(t => t) : [],
+					featured: false,
+					camera: 'RICOH GR IIIX',
+					focal_length: '28mm',
+					aperture: 'f/2.8',
+					shutter_speed: '1/125s',
+					iso: '200'
+				};
+
+				// Add to database
+				const image = await db.addImage(imageData);
+				if (image) {
+					uploadedImages.push({
+						...image,
+						src: `/images/${image.country}/${image.filename}`
+					});
+				} else {
+					// Clean up uploaded file if database save fails
+					fs.unlinkSync(finalFilePath);
+					errors.push(`Failed to save metadata for ${filename}`);
+				}
+			} catch (err) {
+				console.error(`Error processing file ${file.filename}:`, err);
+				errors.push(`Failed to process ${file.filename}: ${err.message}`);
+			}
+		}
+
+		res.status(201).json({
+			uploaded: uploadedImages.length,
+			errors: errors,
+			images: uploadedImages,
+			message: `Successfully uploaded ${uploadedImages.length} images${errors.length > 0 ? ` with ${errors.length} errors` : ''}`
+		});
+	} catch (err) {
+		console.error('Error in bulk upload:', err);
+		res.status(500).json({ error: 'Failed to upload images' });
+	}
+});
+
 // Add new image (metadata only)
 app.post('/api/photos', async (req, res) => {
 	try {

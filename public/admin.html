@@ -23,7 +23,32 @@
         }
         h1 {
             color: #333;
+            margin-bottom: 20px;
+        }
+        .admin-nav {
+            display: flex;
+            gap: 15px;
             margin-bottom: 30px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        .nav-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 16px;
+            border: 1px solid #007bff;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            background: #007bff;
+            color: white;
+        }
+        .nav-link.active {
+            background: #007bff;
+            color: white;
         }
         .image-grid {
             display: grid;
@@ -102,6 +127,11 @@
 <body>
     <div class="container">
         <h1>Metadata Editor</h1>
+        <div class="admin-nav">
+            <a href="/admin.html" class="nav-link active">Edit Metadata</a>
+            <a href="/upload.html" class="nav-link">Bulk Upload</a>
+            <a href="/" class="nav-link">View Gallery</a>
+        </div>
         <div id="status"></div>
         <div id="images-container">
             <p>Loading images...</p>
