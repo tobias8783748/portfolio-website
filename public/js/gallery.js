@@ -62,14 +62,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   function render() {
     let filtered = photos;
     
+    // Exclude portrait images from gallery
+    filtered = filtered.filter(p => !p.tags || !p.tags.includes('portrait'));
+    
     // Apply country filter
     if (currentFilter !== 'all') {
       if (currentFilter === 'best') {
-        filtered = photos.filter(p => p.tags && p.tags.includes('best'));
+        filtered = filtered.filter(p => p.tags && p.tags.includes('best'));
       } else if (currentFilter === 'favorites') {
-        filtered = photos.filter(p => p.tags && p.tags.includes('favorites'));
+        filtered = filtered.filter(p => p.tags && p.tags.includes('favorites'));
       } else {
-        filtered = photos.filter(p => p.country === currentFilter);
+        filtered = filtered.filter(p => p.country === currentFilter);
       }
     }
     
