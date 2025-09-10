@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>tsa</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Proxima+Nova:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">tsa portfolio</a>
+            <nav class="nav">
+                <a href="/gallery.html">Gallery</a>
+                <a aria-current="page" href="/about.html">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" style="padding:32px 0 24px; max-width:840px">
+        <div style="display:grid; grid-template-columns: 2fr 1fr; gap:40px; align-items:start; margin-bottom:40px" class="about-layout">
+            <div>
+                <h1 style="font-size:2.5rem; font-weight:700; margin-bottom:20px;">About</h1>
+                <p style="font-size:1.1rem; line-height:1.6;">Landscapes, cities, cultures — captured on journeys across the globe.</p>
+                <p style="font-size:1.1rem; line-height:1.6;">All images shot on Ri</p>
+            </div>
+            <div>
+                <img src="/images/portrait.jpg" alt="Portrait" style="width:100%; height:auto; border-radius:0; object-fit:cover; max-width:300px" />
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p style="text-align:center; width:100%; margin:0;">© <span id="year"></span> tsa</p>
+        </div>
+    </footer>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
+
+

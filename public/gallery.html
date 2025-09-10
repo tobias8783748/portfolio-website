@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>tsa</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Proxima+Nova:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css" />
+
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/" class="logo">tsa</a>
+            <div class="dropdown-container">
+                <button class="dropdown-trigger" id="nav-menu-btn" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="dropdown-menu" id="nav-menu">
+                    <a aria-current="page" href="/gallery.html">Images</a>
+                    <a href="/about.html">About</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" style="padding:32px 0 24px">
+        <div id="country-filters" class="filterbar" style="margin-bottom:10px">
+            <button class="filter-link" data-tag="favorites">Favorites</button>
+            <button class="filter-link" data-country="all" aria-current="true">All</button>
+            <button class="filter-link" data-country="Argentina">Argentina</button>
+            <button class="filter-link" data-country="Bolivia">Bolivia</button>
+            <button class="filter-link" data-country="Chile">Chile</button>
+            <button class="filter-link" data-country="Colombia">Colombia</button>
+            <button class="filter-link" data-country="Denmark">Denmark</button>
+            <div class="dropdown">
+                <button class="filter-link dropdown-toggle" data-country="Japan">Japan</button>
+                <div class="dropdown-menu">
+                    <button class="dropdown-item" data-country="Japan" data-region="Hokkaido">Hokkaido</button>
+                    <button class="dropdown-item" data-country="Japan" data-region="Mainland">Mainland</button>
+                    <button class="dropdown-item" data-country="Japan" data-region="Okinawa">Okinawa</button>
+                </div>
+            </div>
+            <button class="filter-link" data-country="Peru">Peru</button>
+        </div>
+        <div id="gallery-grid" class="masonry"></div>
+        <div id="image-counter" style="text-align: center; margin-top: 40px; padding: 20px; color: #666; font-size: 14px; border-top: 1px solid rgba(0,0,0,0.1);"></div>
+    </main>
+
+    <div id="lightbox" style="position:fixed; inset:0; display:none; background:#ffffff; align-items:center; justify-content:center; z-index:100; padding:20px;">
+        <button id="lightbox-close" aria-label="Close" style="position:absolute; top:20px; right:20px; background:rgba(255,255,255,0.95); border:none; color:#111; padding:12px 16px; font-size:14px; opacity:0.9; z-index:101; min-width:48px; min-height:32px; box-shadow:0 4px 12px rgba(0,0,0,0.15); transition:all 0.2s ease; cursor:pointer;">Close</button>
+        <button id="lightbox-prev" aria-label="Previous" style="position:absolute; left:20px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.95); border:none; color:#111; padding:16px 12px; font-size:20px; opacity:0.9; z-index:101; min-width:48px; min-height:48px; box-shadow:0 4px 12px rgba(0,0,0,0.15); transition:all 0.2s ease; cursor:pointer;">←</button>
+        <div style="display:flex; flex-direction:column; align-items:center; max-width:90%; max-height:90%;">
+            <img id="lightbox-img" alt="" style="max-width:100%; max-height:80vh; width:auto; height:auto; border-radius:0; object-fit:contain; margin:0 auto;" />
+            <div id="lightbox-metadata" style="margin-top:20px; text-align:center; max-width:600px; padding:0 20px;">
+                <div id="lightbox-location" style="font-size:14px; font-weight:600; margin-bottom:8px; color:#111;"></div>
+                <div id="lightbox-details" style="font-size:14px; color:#666; margin-bottom:8px;"></div>
+                <div id="lightbox-tags" style="font-size:14px; color:#888;"></div>
+            </div>
+        </div>
+        <button id="lightbox-next" aria-label="Next" style="position:absolute; right:20px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.95); border:none; color:#111; padding:16px 12px; font-size:20px; opacity:0.9; z-index:101; min-width:48px; min-height:48px; box-shadow:0 4px 12px rgba(0,0,0,0.15); transition:all 0.2s ease; cursor:pointer;">→</button>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p style="text-align:center; width:100%; margin:0;">© <span id="year"></span> All rights reserved</p>
+        </div>
+    </footer>
+
+    <script src="/js/gallery.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.js" defer></script>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
+
+
