@@ -5,7 +5,7 @@ class ImageDatabase {
   constructor() {
     // Use persistent disk path on Render, fallback to local for development
     this.dbPath = process.env.RENDER 
-      ? '/opt/render/project/src/database/images.json'
+      ? '/opt/render/project/src/public/images/database.json'
       : path.join(__dirname, 'images.json');
     this.cache = null;
     this.cacheTime = 0;
@@ -19,6 +19,8 @@ class ImageDatabase {
     }
 
     try {
+      console.log('Loading database from:', this.dbPath);
+      
       // Ensure database directory exists
       const dbDir = path.dirname(this.dbPath);
       await fs.mkdir(dbDir, { recursive: true });
@@ -27,22 +29,27 @@ class ImageDatabase {
       let data;
       try {
         data = await fs.readFile(this.dbPath, 'utf8');
+        console.log('Database loaded successfully');
       } catch (readError) {
+        console.log('Database file not found, creating new one');
         // If database doesn't exist, try to copy from template
         const templatePath = path.join(__dirname, 'images.json.template');
         try {
           data = await fs.readFile(templatePath, 'utf8');
           // Save the template as the new database
           await fs.writeFile(this.dbPath, data);
+          console.log('Database created from template');
         } catch (templateError) {
           // If template doesn't exist, create empty database
           data = JSON.stringify({ images: [], countries: [], tags: [] }, null, 2);
           await fs.writeFile(this.dbPath, data);
+          console.log('Empty database created');
         }
       }
       
       this.cache = JSON.parse(data);
       this.cacheTime = now;
+      console.log('Database loaded with', this.cache.images.length, 'images');
       return this.cache;
     } catch (error) {
       console.error('Error loading database:', error);
@@ -52,9 +59,11 @@ class ImageDatabase {
 
   async saveDatabase(data) {
     try {
+      console.log('Saving database to:', this.dbPath);
       await fs.writeFile(this.dbPath, JSON.stringify(data, null, 2));
       this.cache = data;
       this.cacheTime = Date.now();
+      console.log('Database saved successfully with', data.images.length, 'images');
       return true;
     } catch (error) {
       console.error('Error saving database:', error);
