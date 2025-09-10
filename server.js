@@ -135,21 +135,176 @@ app.get('/api/upload', (req, res) => {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Image - tsa</title>
+    <link rel="icon" type="image/svg+xml" href="/images/camera.svg">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Proxima+Nova:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 5px; font-weight: 600; }
-        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
-        button { background: #111; color: white; padding: 12px 24px; border: none; border-radius: 4px; cursor: pointer; }
-        button:hover { background: #333; }
-        .status { margin-top: 20px; padding: 15px; border-radius: 4px; }
-        .success { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
-        .error { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
+        * { 
+            box-sizing: border-box; 
+            font-family: 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background: #ffffff; 
+            color: #111111; 
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .back-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.95);
+            border: 1px solid rgba(0,0,0,0.1);
+            color: #111;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 6px;
+            backdrop-filter: blur(10px);
+            transition: all 0.2s ease;
+            z-index: 1000;
+        }
+        .back-button:hover {
+            background: rgba(255,255,255,1);
+            border-color: rgba(0,0,0,0.2);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 80px 20px 40px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: 600;
+            color: #111;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            font-size: 16px;
+            color: #6b7280;
+            font-weight: 400;
+        }
+        .form {
+            background: #ffffff;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .form-group { 
+            margin-bottom: 24px; 
+        }
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+        label { 
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: 500; 
+            font-size: 14px;
+            color: #111;
+        }
+        .required {
+            color: #dc2626;
+        }
+        input, select, textarea { 
+            width: 100%; 
+            padding: 12px 16px; 
+            border: 1px solid #d1d5db; 
+            border-radius: 8px; 
+            font-size: 14px; 
+            font-family: inherit;
+            background: #ffffff;
+            transition: all 0.2s ease;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #111;
+            box-shadow: 0 0 0 3px rgba(17,17,17,0.1);
+        }
+        input[type="file"] {
+            padding: 8px 12px;
+            border: 2px dashed #d1d5db;
+            background: #f9fafb;
+            cursor: pointer;
+        }
+        input[type="file"]:hover {
+            border-color: #9ca3af;
+            background: #f3f4f6;
+        }
+        button { 
+            background: #111; 
+            color: white; 
+            padding: 14px 32px; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 14px; 
+            font-weight: 500;
+            font-family: inherit;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+        button:hover { 
+            background: #000;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .status { 
+            padding: 16px; 
+            margin: 24px 0; 
+            border-radius: 8px; 
+            font-size: 14px;
+        }
+        .success { 
+            background: #f0fdf4; 
+            border: 1px solid #bbf7d0; 
+            color: #166534; 
+        }
+        .error { 
+            background: #fef2f2; 
+            border: 1px solid #fecaca; 
+            color: #dc2626; 
+        }
+        .loading {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+        }
+        .success a {
+            color: #166534;
+            text-decoration: underline;
+        }
+        .success a:hover {
+            color: #0f5132;
+        }
     </style>
 </head>
 <body>
-    <h1>Upload Image</h1>
-    <form id="uploadForm" enctype="multipart/form-data">
+    <a href="/" class="back-button">← Back to Gallery</a>
+    
+    <div class="container">
+        <div class="header">
+            <div class="logo">tsa</div>
+            <div class="subtitle">Upload Image</div>
+        </div>
+        
+        <form id="uploadForm" class="form" enctype="multipart/form-data">
         <div class="form-group">
             <label for="image">Image File *</label>
             <input type="file" id="image" name="image" accept="image/*" required>
@@ -170,8 +325,8 @@ app.get('/api/upload', (req, res) => {
         </div>
         
         <div class="form-group">
-            <label for="location">Location</label>
-            <input type="text" id="location" name="location" placeholder="e.g., Tokyo, Buenos Aires">
+            <label for="location">Location *</label>
+            <input type="text" id="location" name="location" placeholder="e.g., Tokyo, Buenos Aires" required>
         </div>
         
         <div class="form-group">
@@ -184,17 +339,12 @@ app.get('/api/upload', (req, res) => {
             <input type="text" id="tags" name="tags" placeholder="landscape, city, architecture">
         </div>
         
-        <div class="form-group">
-            <label>
-                <input type="checkbox" id="featured" name="featured" value="true">
-                Featured Image
-            </label>
-        </div>
         
-        <button type="submit">Upload Image</button>
-    </form>
-    
-    <div id="status"></div>
+            <button type="submit">Upload Image</button>
+        </form>
+        
+        <div id="status"></div>
+    </div>
     
     <script>
         document.getElementById('uploadForm').addEventListener('submit', async (e) => {
@@ -204,7 +354,7 @@ app.get('/api/upload', (req, res) => {
             const statusDiv = document.getElementById('status');
             
             try {
-                statusDiv.innerHTML = '<div class="status">Uploading...</div>';
+                statusDiv.innerHTML = '<div class="status loading">Uploading...</div>';
                 
                 const response = await fetch('/api/upload', {
                     method: 'POST',
@@ -244,7 +394,13 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
 			return res.status(400).json({ error: 'No image file provided' });
 		}
 
-		const { country, location, description, tags, featured } = req.body;
+		const { country, location, description, tags } = req.body;
+		
+		// Validate required fields
+		if (!location || location.trim() === '') {
+			return res.status(400).json({ error: 'Location is required' });
+		}
+		
 		const filename = req.file.filename;
 		const tempFilePath = req.file.path;
 		

@@ -1,3 +1,6 @@
+/* Import Proxima Nova font */
+@import url('https://fonts.googleapis.com/css2?family=Proxima+Nova:wght@300;400;500;600;700&display=swap');
+
 :root {
   --bg: #ffffff;
   --card: #ffffff;
@@ -6,17 +9,20 @@
   --accent: #111111;
 }
 
-* { box-sizing: border-box; }
+* { 
+  box-sizing: border-box; 
+  font-family: 'Proxima Nova', 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
+}
 html, body { height: 100%; }
 body {
   margin: 0;
-  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
+  font-family: 'Proxima Nova', 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
   line-height: 1.6;
   background: var(--bg);
   color: var(--text);
 }
 
-.container { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+.container { width: 100%; max-width: none; margin: 0 auto; padding: 0 20px; }
 
 .site-header {
   position: sticky; top: 0; z-index: 50;
@@ -70,10 +76,58 @@ body {
 .card .sub { color: var(--muted); margin: 0; font-size: 14px; }
 
 /* Masonry gallery */
-.masonry { column-count: 3; column-gap: 18px; }
-.masonry .card { display: inline-block; width: 100%; margin: 0 0 18px; grid-column: auto; break-inside: avoid; border-radius: 0 !important; overflow: hidden; border: none; background: transparent; }
-.masonry .card img { border-radius: 0 !important; }
+.masonry { 
+  column-count: 3; 
+  column-gap: 0; 
+  column-rule: none;
+  width: 100%; 
+  padding: 0 80px; 
+  margin: 0 auto; 
+  max-width: none; 
+  font-size: 0;
+  line-height: 0;
+}
+.masonry .card { 
+  display: inline-block; 
+  width: 100%; 
+  margin: 0 !important; 
+  padding: 0 !important;
+  grid-column: auto; 
+  break-inside: avoid; 
+  border-radius: 0 !important; 
+  overflow: hidden; 
+  border: none; 
+  background: transparent; 
+  position: relative; 
+  cursor: pointer; 
+  vertical-align: top;
+}
+.masonry .card img { border-radius: 0 !important; transition: opacity 0.3s ease; }
 .masonry .card .info { display: none; }
+.masonry .card .location-overlay { 
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  color: white; 
+  font-weight: 600; 
+  font-size: 16px; 
+  text-align: center; 
+  opacity: 0; 
+  transition: opacity 0.3s ease; 
+  pointer-events: none;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.7);
+}
+.masonry .card:hover img { opacity: 0.7; }
+.masonry .card:hover .location-overlay { opacity: 1; }
+
+/* Filter bar styling to match header */
+.filterbar {
+  padding: 0 80px;
+  width: 100%;
+  margin: 0 auto 40px auto;
+  max-width: none;
+}
 
 /* Override any Tailwind or other CSS that might add rounded corners */
 #gallery-grid img,
@@ -83,23 +137,101 @@ body {
 .masonry .card,
 .masonry .card img {
   border-radius: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  outline: none !important;
 }
 
-@media (max-width: 1200px) {
-  .masonry { column-count: 2; }
+/* Responsive masonry grid - expands unlimited on larger screens */
+@media (min-width: 1600px) {
+  .masonry { column-count: 6; column-gap: 0; }
 }
 
-@media (max-width: 920px) {
-  .card { grid-column: span 6; }
-}
-@media (max-width: 560px) {
-  .grid { gap: 10px; }
-  .card { grid-column: span 12; }
-  .masonry { column-count: 1; column-gap: 14px; }
+@media (min-width: 1400px) and (max-width: 1599px) {
+  .masonry { column-count: 5; column-gap: 0; }
 }
 
-.site-footer { border-top: 1px solid rgba(0,0,0,0.08); margin-top: 48px; }
-.footer-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .masonry { column-count: 4; column-gap: 0; }
+}
+
+@media (min-width: 900px) and (max-width: 1199px) {
+  .masonry { column-count: 3; column-gap: 0; }
+}
+
+@media (min-width: 600px) and (max-width: 899px) {
+  .masonry { column-count: 2; column-gap: 0; }
+}
+
+@media (max-width: 599px) {
+  .masonry { column-count: 1; column-gap: 0; padding: 0 20px; }
+  .filterbar { padding: 0 20px; margin: 0 auto 30px auto; }
+  .site-footer { padding: 0 20px; }
+  #image-counter { padding: 20px 20px !important; }
+  #image-counter::before { margin-left: -20px; margin-right: -20px; }
+  .site-footer::before { margin: 0 -20px 0 -20px; width: calc(100% + 40px); }
+}
+
+/* Responsive padding for gallery and filters with more side space */
+@media (min-width: 1600px) {
+  .masonry, .site-footer { padding: 0 100px; margin: 0 auto; max-width: none; }
+  .filterbar { padding: 0 100px; margin: 0 auto 40px auto; max-width: none; }
+  #image-counter { padding: 20px 100px !important; }
+  #image-counter::before { margin-left: -100px; margin-right: -100px; }
+  .site-footer::before { margin: 0 -100px 0 -100px; width: calc(100% + 200px); }
+}
+
+@media (min-width: 1200px) and (max-width: 1599px) {
+  .masonry, .site-footer { padding: 0 80px; margin: 0 auto; max-width: none; }
+  .filterbar { padding: 0 80px; margin: 0 auto 40px auto; max-width: none; }
+  #image-counter { padding: 20px 80px !important; }
+  #image-counter::before { margin-left: -80px; margin-right: -80px; }
+  .site-footer::before { margin: 0 -80px 0 -80px; width: calc(100% + 160px); }
+}
+
+@media (min-width: 900px) and (max-width: 1199px) {
+  .masonry, .site-footer { padding: 0 60px; margin: 0 auto; max-width: none; }
+  .filterbar { padding: 0 60px; margin: 0 auto 40px auto; max-width: none; }
+  #image-counter { padding: 20px 60px !important; }
+  #image-counter::before { margin-left: -60px; margin-right: -60px; }
+  .site-footer::before { margin: 0 -60px 0 -60px; width: calc(100% + 120px); }
+}
+
+@media (min-width: 600px) and (max-width: 899px) {
+  .masonry, .site-footer { padding: 0 40px; margin: 0 auto; max-width: none; }
+  .filterbar { padding: 0 40px; margin: 0 auto 40px auto; max-width: none; }
+  #image-counter { padding: 20px 40px !important; }
+  #image-counter::before { margin-left: -40px; margin-right: -40px; }
+  .site-footer::before { margin: 0 -40px 0 -40px; width: calc(100% + 80px); }
+}
+
+/* Image counter styling */
+#image-counter {
+  padding: 20px 80px !important;
+  position: relative;
+}
+#image-counter::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(0,0,0,0.1);
+  margin-left: -80px;
+  margin-right: -80px;
+}
+
+.site-footer { margin-top: 48px; padding: 0 80px; }
+.site-footer::before { 
+  content: ''; 
+  display: block; 
+  border-top: 1px solid rgba(0,0,0,0.08); 
+  margin: 0 -80px 0 -80px; 
+  width: calc(100% + 160px);
+}
+.footer-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; font-size: 14px; }
 .socials a { color: var(--muted); text-decoration: none; margin-left: 12px; }
 .socials a:hover { color: var(--text); }
 
@@ -203,7 +335,7 @@ body {
   border: 1px solid rgba(0,0,0,0.1);
   color: var(--muted);
   padding: 8px 16px;
-  border-radius: 20px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
   transition: all 0.2s ease;
@@ -321,6 +453,14 @@ html body .masonry img {
   border-radius: 0 !important;
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
+}
+
+/* Ensure consistent spacing between all images */
+.masonry .card {
+  margin-bottom: 18px !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-top: 0 !important;
 }
 
 

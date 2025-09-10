@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   let photos = [];
-  let currentFilter = 'all'; // Start with 'all' filter as default
+  let currentFilter = 'favorites'; // Start with 'all' filter as default
   let currentRegion = null; // For Japan region filtering
   let currentPhotoIndex = 0;
   let filteredPhotos = [];
@@ -80,12 +80,16 @@ document.addEventListener('DOMContentLoaded', async () => {
       filtered = filtered.filter(p => p.location && p.location.toLowerCase().includes(regionParam.toLowerCase()));
     }
     
-    // Store filtered photos for lightbox navigation
-    filteredPhotos = filtered;
+    // Shuffle the filtered photos for random order
+    const shuffled = filtered.sort(() => Math.random() - 0.5);
     
-    grid.innerHTML = filtered.map((p, index) => `
+    // Store shuffled photos for lightbox navigation
+    filteredPhotos = shuffled;
+    
+    grid.innerHTML = shuffled.map((p, index) => `
       <button class="card" data-id="${p.id}" data-src="${p.src}" data-title="${p.location}" data-index="${index}" style="text-align:left; padding:0; border:none; background:transparent; cursor:pointer; border-radius:0;">
         <img src="${p.src}" alt="${p.location}" style="border-radius:0 !important; -webkit-border-radius:0 !important; -moz-border-radius:0 !important;">
+        <div class="location-overlay">${p.location}</div>
         <div class="info">
           <p class="title">${p.location}</p>
           <p class="sub">${p.country} • ${p.tags ? p.tags.join(', ') : ''}</p>

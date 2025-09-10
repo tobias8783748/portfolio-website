@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>tsa</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="/images/camera.svg">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="shortcut icon" href="/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -33,10 +33,10 @@
         </div>
     </header>
 
-    <main class="container" style="padding:32px 0 24px">
-        <div id="country-filters" class="filterbar" style="margin-bottom:10px">
-            <button class="filter-link" data-country="all" aria-current="true">All</button>
-            <button class="filter-link" data-tag="favorites">Favorites</button>
+    <main class="container" style="padding:32px 0 24px; max-width:none; width:100%;">
+        <div id="country-filters" class="filterbar">
+                <button class="filter-link" data-country="all">All</button>
+                <button class="filter-link active" data-tag="favorites" aria-current="true">Favorites</button>
             <button class="filter-link" data-tag="best" style="display:none;">Best</button>
             <button class="filter-link" data-country="Argentina">Argentina</button>
             <button class="filter-link" data-country="Bolivia">Bolivia</button>
@@ -54,7 +54,7 @@
             <button class="filter-link" data-country="Peru">Peru</button>
         </div>
         <div id="gallery-grid" class="masonry"></div>
-        <div id="image-counter" style="text-align: center; margin-top: 40px; padding: 20px; color: #666; font-size: 14px; border-top: 1px solid rgba(0,0,0,0.1);"></div>
+        <div id="image-counter" style="text-align: center; margin-top: 40px; color: #666; font-size: 14px;"></div>
     </main>
 
     <div id="lightbox" style="position:fixed; inset:0; display:none; background:#ffffff; align-items:center; justify-content:center; z-index:100; padding:20px;">
