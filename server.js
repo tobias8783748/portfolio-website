@@ -15,8 +15,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      // Use a temporary directory first, then move to country folder
-      const tempPath = path.join(__dirname, 'public', 'images', 'temp');
+      // Use Render's persistent disk path if available, otherwise fallback to local
+      const basePath = process.env.RENDER ? '/opt/render/project/src/public/images' : path.join(__dirname, 'public', 'images');
+      const tempPath = path.join(basePath, 'temp');
       
       // Create temp directory if it doesn't exist
       if (!fs.existsSync(tempPath)) {
@@ -408,7 +409,8 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
 		const id = path.parse(filename).name;
 		
 		// Create country directory
-		const countryDir = path.join(__dirname, 'public', 'images', country || 'Unknown');
+		const basePath = process.env.RENDER ? '/opt/render/project/src/public/images' : path.join(__dirname, 'public', 'images');
+		const countryDir = path.join(basePath, country || 'Unknown');
 		if (!fs.existsSync(countryDir)) {
 			fs.mkdirSync(countryDir, { recursive: true });
 		}
@@ -425,7 +427,7 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
 			location: location || country || 'Unknown',
 			description: description || '',
 			tags: tags ? tags.split(',').map(t => t.trim()).filter(t => t) : [],
-			featured: featured === 'true' || featured === true,
+			featured: false,
 			camera: 'RICOH GR IIIX',
 			focal_length: '28mm',
 			aperture: 'f/2.8',
