@@ -13,8 +13,8 @@ async function resizeImage(inputPath, outputPath) {
   try {
     await sharp(inputPath)
       .resize(1920, 1280, {
-        fit: 'cover',
-        position: 'center'
+        fit: 'inside',
+        withoutEnlargement: true
       })
       .jpeg({ quality: 85 })
       .toFile(outputPath);
