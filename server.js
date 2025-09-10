@@ -103,6 +103,57 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// Admin endpoint to view and edit metadata
+app.get('/api/admin', async (req, res) => {
+	try {
+		const images = await db.getAllImages();
+		const countries = await db.getAllCountries();
+		const tags = await db.getAllTags();
+		
+		res.json({
+			images: images,
+			countries: countries,
+			tags: tags,
+			total: images.length
+		});
+	} catch (error) {
+		res.status(500).json({ error: 'Failed to load metadata' });
+	}
+});
+
+// Update image metadata
+app.put('/api/admin/image/:id', async (req, res) => {
+	try {
+		const { id } = req.params;
+		const updateData = req.body;
+		
+		const updatedImage = await db.updateImage(id, updateData);
+		if (!updatedImage) {
+			return res.status(404).json({ error: 'Image not found' });
+		}
+		
+		res.json(updatedImage);
+	} catch (error) {
+		res.status(500).json({ error: 'Failed to update image' });
+	}
+});
+
+// Delete image
+app.delete('/api/admin/image/:id', async (req, res) => {
+	try {
+		const { id } = req.params;
+		const success = await db.deleteImage(id);
+		
+		if (!success) {
+			return res.status(404).json({ error: 'Image not found' });
+		}
+		
+		res.json({ success: true });
+	} catch (error) {
+		res.status(500).json({ error: 'Failed to delete image' });
+	}
+});
+
 // Photos API with database metadata
 app.get('/api/photos', async (req, res) => {
 	try {
