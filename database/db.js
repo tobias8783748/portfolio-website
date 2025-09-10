@@ -3,7 +3,10 @@ const path = require('path');
 
 class ImageDatabase {
   constructor() {
-    this.dbPath = path.join(__dirname, 'images.json');
+    // Use persistent disk path on Render, fallback to local for development
+    this.dbPath = process.env.RENDER 
+      ? '/opt/render/project/src/database/images.json'
+      : path.join(__dirname, 'images.json');
     this.cache = null;
     this.cacheTime = 0;
     this.cacheTimeout = 30000; // 30 seconds
@@ -16,6 +19,10 @@ class ImageDatabase {
     }
 
     try {
+      // Ensure database directory exists
+      const dbDir = path.dirname(this.dbPath);
+      await fs.mkdir(dbDir, { recursive: true });
+      
       const data = await fs.readFile(this.dbPath, 'utf8');
       this.cache = JSON.parse(data);
       this.cacheTime = now;

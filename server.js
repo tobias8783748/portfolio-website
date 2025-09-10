@@ -18,10 +18,14 @@ if (process.env.RENDER) {
   // Copy static images to persistent disk on startup
   const staticImagesPath = path.join(__dirname, 'public', 'images');
   const persistentImagesPath = '/opt/render/project/src/public/images';
+  const persistentDbPath = '/opt/render/project/src/database';
   
-  // Ensure persistent disk directory exists
+  // Ensure persistent disk directories exist
   if (!fs.existsSync(persistentImagesPath)) {
     fs.mkdirSync(persistentImagesPath, { recursive: true });
+  }
+  if (!fs.existsSync(persistentDbPath)) {
+    fs.mkdirSync(persistentDbPath, { recursive: true });
   }
   
   // Copy static images to persistent disk
