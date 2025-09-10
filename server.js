@@ -89,8 +89,8 @@ const upload = multer({
     }
   }),
   limits: {
-    fileSize: 10 * 1024 * 1024, // 10MB limit per file
-    files: 50 // Maximum 50 files
+    fileSize: 15 * 1024 * 1024, // 15MB limit per file
+    files: 100 // Maximum 100 files
   },
   fileFilter: (req, file, cb) => {
     if (file.mimetype.startsWith('image/')) {
@@ -566,7 +566,7 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
 });
 
 // Bulk upload endpoint
-app.post('/api/bulk-upload', upload.array('images', 50), async (req, res) => {
+app.post('/api/bulk-upload', upload.array('images', 100), async (req, res) => {
 	try {
 		console.log('Bulk upload request received');
 		console.log('Files:', req.files ? req.files.length : 'No files');
@@ -649,9 +649,9 @@ app.post('/api/bulk-upload', upload.array('images', 50), async (req, res) => {
 	} catch (err) {
 		console.error('Error in bulk upload:', err);
 		if (err.code === 'LIMIT_FILE_SIZE') {
-			res.status(400).json({ error: 'File too large. Maximum size is 10MB per file.' });
+			res.status(400).json({ error: 'File too large. Maximum size is 15MB per file.' });
 		} else if (err.code === 'LIMIT_FILE_COUNT') {
-			res.status(400).json({ error: 'Too many files. Maximum is 50 files.' });
+			res.status(400).json({ error: 'Too many files. Maximum is 100 files.' });
 		} else if (err.message === 'Only image files are allowed') {
 			res.status(400).json({ error: 'Only image files are allowed.' });
 		} else {
