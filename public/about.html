@@ -42,7 +42,7 @@
             </div>
             <div style="display:flex; justify-content:center;">
                 <!-- Portrait image -->
-                <img src="/images/portrait.jpeg" alt="Portrait" style="width:100%; height:auto; border-radius:0; object-fit:cover; max-width:300px" />
+                <img id="portrait-img" src="/images/portrait.jpeg" alt="Portrait" style="width:100%; height:auto; border-radius:0; object-fit:cover; max-width:300px" />
             </div>
         </div>
     </main>
@@ -84,6 +84,32 @@
           }
         });
       }
+      
+      // Load portrait from database if available
+      async function loadPortrait() {
+        try {
+          const response = await fetch('/api/photos');
+          const images = await response.json();
+          
+          // Look for a portrait image (you can identify it by tags, description, or filename)
+          const portrait = images.find(img => 
+            img.tags.includes('portrait') || 
+            img.description.toLowerCase().includes('portrait') ||
+            img.filename.toLowerCase().includes('portrait')
+          );
+          
+          if (portrait) {
+            const img = document.getElementById('portrait-img');
+            img.src = `/images/${portrait.country}/${portrait.filename}`;
+            img.alt = portrait.location || 'Portrait';
+          }
+        } catch (error) {
+          console.log('Using fallback portrait image');
+        }
+      }
+      
+      // Load portrait when page loads
+      loadPortrait();
     </script>
 </body>
 </html>
