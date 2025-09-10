@@ -25,7 +25,7 @@ body {
   border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 .header-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
-.logo { color: var(--text); text-decoration: none; font-weight: 700; letter-spacing: 1px; }
+.logo { color: var(--text); text-decoration: none; font-weight: 700; letter-spacing: 1px; font-size: 36px; }
 .logo span { color: var(--accent); }
 .nav a { color: var(--muted); text-decoration: none; margin-left: 20px; }
 .nav a:hover { color: var(--text); }
@@ -71,8 +71,19 @@ body {
 
 /* Masonry gallery */
 .masonry { column-count: 3; column-gap: 18px; }
-.masonry .card { display: inline-block; width: 100%; margin: 0 0 18px; grid-column: auto; break-inside: avoid; border-radius: 0; overflow: hidden; border: none; background: transparent; }
+.masonry .card { display: inline-block; width: 100%; margin: 0 0 18px; grid-column: auto; break-inside: avoid; border-radius: 0 !important; overflow: hidden; border: none; background: transparent; }
+.masonry .card img { border-radius: 0 !important; }
 .masonry .card .info { display: none; }
+
+/* Override any Tailwind or other CSS that might add rounded corners */
+#gallery-grid img,
+#gallery-grid .card,
+#gallery-grid .card img,
+.masonry img,
+.masonry .card,
+.masonry .card img {
+  border-radius: 0 !important;
+}
 
 @media (max-width: 1200px) {
   .masonry { column-count: 2; }
@@ -229,7 +240,7 @@ body {
 
 /* Logo Styles */
 .logo {
-  font-size: 24px;
+  font-size: 36px;
   font-weight: 700;
   letter-spacing: 1px;
   color: var(--text);
@@ -262,6 +273,7 @@ body {
   width: 100%;
   height: auto;
   display: block;
+  border-radius: 0 !important;
 }
 
 #gallery-grid .card .info {
@@ -297,8 +309,18 @@ body {
   }
   
   .logo {
-    font-size: 20px;
+    font-size: 30px;
   }
+}
+
+/* Force no rounded corners on all gallery images - highest specificity */
+html body #gallery-grid .card img,
+html body .masonry .card img,
+html body #gallery-grid img,
+html body .masonry img {
+  border-radius: 0 !important;
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
 }
 
 

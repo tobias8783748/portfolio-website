@@ -7,6 +7,8 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="shortcut icon" href="/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Proxima+Nova:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -15,35 +17,72 @@
 <body>
     <header class="site-header">
         <div class="container header-inner">
-            <a href="/" class="logo">tsa portfolio</a>
-            <nav class="nav">
-                <a href="/gallery.html">Gallery</a>
-                <a aria-current="page" href="/about.html">About</a>
-            </nav>
+            <a href="/" class="logo">tsa</a>
+            <div class="dropdown-container">
+                <button class="dropdown-trigger" id="nav-menu-btn" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="dropdown-menu" id="nav-menu">
+                    <a href="/gallery.html">Images</a>
+                    <a aria-current="page" href="/about.html">About</a>
+                </div>
+            </div>
         </div>
     </header>
 
-    <main class="container" style="padding:32px 0 24px; max-width:840px">
-        <div style="display:grid; grid-template-columns: 2fr 1fr; gap:40px; align-items:start; margin-bottom:40px" class="about-layout">
-            <div>
+    <main class="container" style="padding:32px 0 24px">
+        <div style="display:grid; grid-template-columns: 2fr 1fr; gap:40px; align-items:center; margin-bottom:40px" class="about-layout">
+            <div style="text-align:center;">
                 <h1 style="font-size:2.5rem; font-weight:700; margin-bottom:20px;">About</h1>
-                <p style="font-size:1.1rem; line-height:1.6;">Landscapes, cities, cultures — captured on journeys across the globe.</p>
-                <p style="font-size:1.1rem; line-height:1.6;">All images shot on Ri</p>
+                <p style="font-size:1.1rem; line-height:1.6;">Landscapes, cities, cultures — captured on journeys through Japan and South America</p>
+                <p style="font-size:1.1rem; line-height:1.6;">Countries visited: Japan, Argentina, Chile, Colombia, Peru and Bolivia</p>
+                <p style="font-size:1.1rem; line-height:1.6;">All images shot on Ricoh GR IIIX</p>
             </div>
-            <div>
-                <img src="/images/portrait.jpg" alt="Portrait" style="width:100%; height:auto; border-radius:0; object-fit:cover; max-width:300px" />
+            <div style="display:flex; justify-content:center;">
+                <img src="/images/portrait.jpeg" alt="Portrait" style="width:100%; height:auto; border-radius:0; object-fit:cover; max-width:300px" />
             </div>
         </div>
     </main>
 
     <footer class="site-footer">
         <div class="container footer-inner">
-            <p style="text-align:center; width:100%; margin:0;">© <span id="year"></span> tsa</p>
+            <p style="text-align:center; width:100%; margin:0;">© <span id="year"></span> All rights reserved</p>
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.js" defer></script>
     <script>
       document.getElementById('year').textContent = new Date().getFullYear();
+      
+      // Hamburger menu functionality
+      const navMenuBtn = document.getElementById('nav-menu-btn');
+      const navMenu = document.getElementById('nav-menu');
+      
+      if (navMenuBtn && navMenu) {
+        navMenuBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          navMenuBtn.classList.toggle('active');
+          navMenu.classList.toggle('show');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!navMenuBtn.contains(e.target) && !navMenu.contains(e.target)) {
+            navMenuBtn.classList.remove('active');
+            navMenu.classList.remove('show');
+          }
+        });
+        
+        // Close menu when clicking on a link
+        navMenu.addEventListener('click', (e) => {
+          if (e.target.tagName === 'A') {
+            navMenuBtn.classList.remove('active');
+            navMenu.classList.remove('show');
+          }
+        });
+      }
     </script>
 </body>
 </html>
