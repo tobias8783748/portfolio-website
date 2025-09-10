@@ -9,7 +9,60 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
+
+// Serve static files from public directory
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve images from persistent disk on Render
+if (process.env.RENDER) {
+  // Copy static images to persistent disk on startup
+  const staticImagesPath = path.join(__dirname, 'public', 'images');
+  const persistentImagesPath = '/opt/render/project/src/public/images';
+  
+  // Ensure persistent disk directory exists
+  if (!fs.existsSync(persistentImagesPath)) {
+    fs.mkdirSync(persistentImagesPath, { recursive: true });
+  }
+  
+  // Copy static images to persistent disk
+  try {
+    const files = fs.readdirSync(staticImagesPath);
+    files.forEach(file => {
+      if (file !== 'temp') { // Skip temp directory
+        const srcPath = path.join(staticImagesPath, file);
+        const destPath = path.join(persistentImagesPath, file);
+        
+        if (fs.statSync(srcPath).isFile()) {
+          fs.copyFileSync(srcPath, destPath);
+          console.log(`Copied ${file} to persistent disk`);
+        } else if (fs.statSync(srcPath).isDirectory()) {
+          // Copy directory recursively
+          const copyDir = (src, dest) => {
+            if (!fs.existsSync(dest)) {
+              fs.mkdirSync(dest, { recursive: true });
+            }
+            const items = fs.readdirSync(src);
+            items.forEach(item => {
+              const srcItem = path.join(src, item);
+              const destItem = path.join(dest, item);
+              if (fs.statSync(srcItem).isDirectory()) {
+                copyDir(srcItem, destItem);
+              } else {
+                fs.copyFileSync(srcItem, destItem);
+              }
+            });
+          };
+          copyDir(srcPath, destPath);
+          console.log(`Copied directory ${file} to persistent disk`);
+        }
+      }
+    });
+  } catch (error) {
+    console.error('Error copying static images to persistent disk:', error);
+  }
+  
+  app.use('/images', express.static(persistentImagesPath));
+}
 
 // Configure multer for file uploads
 const upload = multer({
