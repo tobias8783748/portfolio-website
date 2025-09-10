@@ -2,10 +2,28 @@ const path = require('path');
 const express = require('express');
 const fs = require('fs');
 const multer = require('multer');
+const sharp = require('sharp');
 const db = require('./database/db');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Image resizing function
+async function resizeImage(inputPath, outputPath) {
+  try {
+    await sharp(inputPath)
+      .resize(1920, 1280, {
+        fit: 'cover',
+        position: 'center'
+      })
+      .jpeg({ quality: 85 })
+      .toFile(outputPath);
+    return true;
+  } catch (error) {
+    console.error('Error resizing image:', error);
+    return false;
+  }
+}
 
 // Middleware
 app.use(express.json());
@@ -526,9 +544,16 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
 			fs.mkdirSync(countryDir, { recursive: true });
 		}
 		
-		// Move file from temp to country folder
+		// Resize image and save to country folder
 		const finalFilePath = path.join(countryDir, filename);
-		fs.renameSync(tempFilePath, finalFilePath);
+		const resizeSuccess = await resizeImage(tempFilePath, finalFilePath);
+		
+		// Clean up temp file
+		fs.unlinkSync(tempFilePath);
+		
+		if (!resizeSuccess) {
+			return res.status(500).json({ error: 'Failed to process image' });
+		}
 		
 		// Prepare image data
 		const imageData = {
@@ -602,9 +627,17 @@ app.post('/api/bulk-upload', upload.array('images', 100), async (req, res) => {
 				// Generate unique ID from filename
 				const id = path.parse(filename).name;
 				
-				// Move file from temp to country folder
+				// Resize image and save to country folder
 				const finalFilePath = path.join(countryDir, filename);
-				fs.renameSync(tempFilePath, finalFilePath);
+				const resizeSuccess = await resizeImage(tempFilePath, finalFilePath);
+				
+				// Clean up temp file
+				fs.unlinkSync(tempFilePath);
+				
+				if (!resizeSuccess) {
+					errors.push(`Failed to process ${filename}`);
+					continue;
+				}
 				
 				// Prepare image data with defaults
 				const imageData = {
