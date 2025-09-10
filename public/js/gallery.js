@@ -187,10 +187,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     const photo = filteredPhotos[index];
     if (photo) {
       const locationEl = document.getElementById('lightbox-location');
+      const descriptionEl = document.getElementById('lightbox-description');
       const detailsEl = document.getElementById('lightbox-details');
       const tagsEl = document.getElementById('lightbox-tags');
       
       if (locationEl) locationEl.textContent = `${photo.location}, ${photo.country}`;
+      if (descriptionEl) {
+        if (photo.description && photo.description.trim()) {
+          descriptionEl.textContent = photo.description;
+          descriptionEl.style.display = 'block';
+        } else {
+          descriptionEl.style.display = 'none';
+        }
+      }
       if (detailsEl) detailsEl.textContent = `${photo.camera} • ${photo.focal_length} • ${photo.aperture} • ${photo.shutter_speed} • ${photo.iso}`;
       if (tagsEl) tagsEl.style.display = 'none';
     }
