@@ -763,6 +763,53 @@ app.post('/api/sync', async (req, res) => {
 	}
 });
 
+// Clear all data endpoint (for development/reset purposes)
+app.post('/api/clear-data', async (req, res) => {
+	try {
+		const basePath = process.env.RENDER ? '/opt/render/project/src/public/images' : path.join(__dirname, 'public', 'images');
+		
+		// Clear all uploaded images
+		if (fs.existsSync(basePath)) {
+			const items = fs.readdirSync(basePath);
+			items.forEach(item => {
+				if (item !== 'temp') { // Keep temp directory
+					const itemPath = path.join(basePath, item);
+					if (fs.statSync(itemPath).isDirectory()) {
+						fs.rmSync(itemPath, { recursive: true, force: true });
+						console.log(`Deleted directory: ${item}`);
+					} else {
+						fs.unlinkSync(itemPath);
+						console.log(`Deleted file: ${item}`);
+					}
+				}
+			});
+		}
+		
+		// Reset database
+		const dbPath = process.env.RENDER 
+			? '/opt/render/project/src/public/images/database.json'
+			: path.join(__dirname, 'database', 'images.json');
+		
+		const emptyDb = JSON.stringify({ images: [], countries: [], tags: [] }, null, 2);
+		await fs.writeFile(dbPath, emptyDb);
+		
+		res.json({ 
+			success: true, 
+			message: 'All data cleared successfully',
+			cleared: {
+				images: true,
+				database: true
+			}
+		});
+	} catch (error) {
+		console.error('Error clearing data:', error);
+		res.status(500).json({ 
+			success: false, 
+			error: 'Failed to clear data: ' + error.message 
+		});
+	}
+});
+
 app.listen(PORT, () => {
 	console.log(`Server running at http://localhost:${PORT}`);
 });
