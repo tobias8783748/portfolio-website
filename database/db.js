@@ -23,7 +23,24 @@ class ImageDatabase {
       const dbDir = path.dirname(this.dbPath);
       await fs.mkdir(dbDir, { recursive: true });
       
-      const data = await fs.readFile(this.dbPath, 'utf8');
+      // Try to read the database file
+      let data;
+      try {
+        data = await fs.readFile(this.dbPath, 'utf8');
+      } catch (readError) {
+        // If database doesn't exist, try to copy from template
+        const templatePath = path.join(__dirname, 'images.json.template');
+        try {
+          data = await fs.readFile(templatePath, 'utf8');
+          // Save the template as the new database
+          await fs.writeFile(this.dbPath, data);
+        } catch (templateError) {
+          // If template doesn't exist, create empty database
+          data = JSON.stringify({ images: [], countries: [], tags: [] }, null, 2);
+          await fs.writeFile(this.dbPath, data);
+        }
+      }
+      
       this.cache = JSON.parse(data);
       this.cacheTime = now;
       return this.cache;
