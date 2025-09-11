@@ -246,6 +246,7 @@ body {
 /* Hamburger Menu Styles */
 .dropdown-container {
   position: relative;
+  overflow: visible;
 }
 
 .dropdown-trigger {
@@ -335,7 +336,7 @@ body {
 #nav-menu {
   position: absolute !important;
   top: 100% !important;
-  left: -20px !important;
+  left: 0 !important;
   right: auto !important;
   background: white;
   border: 1px solid rgba(0,0,0,0.1);
@@ -347,10 +348,22 @@ body {
   display: none;
   z-index: 50;
   white-space: nowrap;
+  overflow: hidden;
 }
 
 #nav-menu.show {
   display: block;
+}
+
+/* Ensure dropdown doesn't cause horizontal overflow */
+.dropdown-container {
+  max-width: 100%;
+  overflow: visible;
+}
+
+#nav-menu {
+  transform: translateX(0);
+  will-change: transform;
 }
 
 /* Filter Bar Styles */
