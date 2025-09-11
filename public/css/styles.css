@@ -138,6 +138,7 @@ body {
   white-space: normal;
   word-wrap: break-word;
   hyphens: auto;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
 }
 
 .masonry .card .location-overlay * {
