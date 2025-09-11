@@ -211,6 +211,7 @@ body {
 #image-counter {
   padding: 20px 80px 100px 80px !important;
   position: relative;
+  text-align: left;
 }
 #image-counter::before {
   content: '';
