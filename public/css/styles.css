@@ -21,6 +21,7 @@ body {
   background: var(--bg);
   color: var(--text);
   overflow-x: hidden;
+  padding-bottom: 100px;
 }
 
 .container { width: 100%; max-width: none; margin: 0 auto; padding: 0 20px; }
@@ -168,43 +169,42 @@ body {
 @media (max-width: 599px) {
   .masonry { column-count: 1; column-gap: 0; padding: 0 20px; }
   .filterbar { padding: 0 20px; margin: 0 auto 30px auto; }
-  .site-footer { padding: 0 20px; }
+  .site-footer { padding: 20px 20px; }
   #image-counter { padding: 20px 20px !important; }
   #image-counter::before { margin-left: -20px; margin-right: -20px; }
-  .site-footer::before { margin: 0 -20px 0 -20px; width: calc(100% + 40px); }
 }
 
 /* Responsive padding for gallery and filters with more side space */
 @media (min-width: 1600px) {
-  .masonry, .site-footer { padding: 0 100px; margin: 0 auto; max-width: none; }
+  .masonry { padding: 0 100px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 100px; margin: 0 auto 40px auto; max-width: none; }
   #image-counter { padding: 20px 100px !important; }
   #image-counter::before { margin-left: -100px; margin-right: -100px; }
-  .site-footer::before { margin: 0 -100px 0 -100px; width: calc(100% + 200px); }
+  .site-footer { padding: 20px 100px; }
 }
 
 @media (min-width: 1200px) and (max-width: 1599px) {
-  .masonry, .site-footer { padding: 0 80px; margin: 0 auto; max-width: none; }
+  .masonry { padding: 0 80px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 80px; margin: 0 auto 40px auto; max-width: none; }
   #image-counter { padding: 20px 80px !important; }
   #image-counter::before { margin-left: -80px; margin-right: -80px; }
-  .site-footer::before { margin: 0 -80px 0 -80px; width: calc(100% + 160px); }
+  .site-footer { padding: 20px 80px; }
 }
 
 @media (min-width: 900px) and (max-width: 1199px) {
-  .masonry, .site-footer { padding: 0 60px; margin: 0 auto; max-width: none; }
+  .masonry { padding: 0 60px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 60px; margin: 0 auto 40px auto; max-width: none; }
   #image-counter { padding: 20px 60px !important; }
   #image-counter::before { margin-left: -60px; margin-right: -60px; }
-  .site-footer::before { margin: 0 -60px 0 -60px; width: calc(100% + 120px); }
+  .site-footer { padding: 20px 60px; }
 }
 
 @media (min-width: 600px) and (max-width: 899px) {
-  .masonry, .site-footer { padding: 0 40px; margin: 0 auto; max-width: none; }
+  .masonry { padding: 0 40px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 40px; margin: 0 auto 40px auto; max-width: none; }
   #image-counter { padding: 20px 40px !important; }
   #image-counter::before { margin-left: -40px; margin-right: -40px; }
-  .site-footer::before { margin: 0 -40px 0 -40px; width: calc(100% + 80px); }
+  .site-footer { padding: 20px 40px; }
 }
 
 /* Image counter styling */
@@ -224,15 +224,24 @@ body {
   margin-right: -80px;
 }
 
-.site-footer { margin-top: 48px; padding: 0 80px; }
-.site-footer::before { 
-  content: ''; 
-  display: block; 
-  border-top: 1px solid rgba(0,0,0,0.08); 
-  margin: 0 -80px 0 -80px; 
-  width: calc(100% + 160px);
+.site-footer { 
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg);
+  border-top: 1px solid rgba(0,0,0,0.08);
+  padding: 20px 80px;
+  z-index: 40;
 }
-.footer-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; font-size: 14px; }
+.footer-inner { 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  height: 32px; 
+  font-size: 14px; 
+  text-align: center;
+}
 .socials a { color: var(--muted); text-decoration: none; margin-left: 12px; }
 .socials a:hover { color: var(--text); }
 
