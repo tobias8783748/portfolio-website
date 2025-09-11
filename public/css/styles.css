@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Proxima+Nova:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bg: #ffffff;
+  --bg: #FDF1EC;
   --card: #ffffff;
   --text: #111111;
   --muted: #6b7280;
@@ -52,7 +52,7 @@ body {
   position: relative;
   display: grid; place-items: center;
   min-height: 68vh;
-  background: #f7f7f8;
+  background: #FDF1EC;
 }
 .hero-content { text-align: center; padding: 64px 0; }
 .hero h1 { font-size: clamp(28px, 5vw, 48px); margin: 0 0 12px; font-weight: 500; }
