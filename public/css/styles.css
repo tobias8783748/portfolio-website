@@ -171,7 +171,6 @@ body {
   .filterbar { padding: 0 20px; margin: 0 auto 30px auto; }
   .site-footer { padding: 20px 20px; }
   #image-counter { padding: 20px 20px !important; }
-  #image-counter::before { margin-left: -20px; margin-right: -20px; }
 }
 
 /* Responsive padding for gallery and filters with more side space */
@@ -179,7 +178,6 @@ body {
   .masonry { padding: 0 100px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 100px; margin: 0 auto 40px auto; max-width: none; }
   #image-counter { padding: 20px 100px !important; }
-  #image-counter::before { margin-left: -100px; margin-right: -100px; }
   .site-footer { padding: 20px 100px; }
 }
 
@@ -187,7 +185,6 @@ body {
   .masonry { padding: 0 80px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 80px; margin: 0 auto 40px auto; max-width: none; }
   #image-counter { padding: 20px 80px !important; }
-  #image-counter::before { margin-left: -80px; margin-right: -80px; }
   .site-footer { padding: 20px 80px; }
 }
 
@@ -195,7 +192,6 @@ body {
   .masonry { padding: 0 60px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 60px; margin: 0 auto 40px auto; max-width: none; }
   #image-counter { padding: 20px 60px !important; }
-  #image-counter::before { margin-left: -60px; margin-right: -60px; }
   .site-footer { padding: 20px 60px; }
 }
 
@@ -203,7 +199,6 @@ body {
   .masonry { padding: 0 40px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 40px; margin: 0 auto 40px auto; max-width: none; }
   #image-counter { padding: 20px 40px !important; }
-  #image-counter::before { margin-left: -40px; margin-right: -40px; }
   .site-footer { padding: 20px 40px; }
 }
 
