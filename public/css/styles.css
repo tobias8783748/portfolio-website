@@ -134,6 +134,10 @@ body {
   letter-spacing: 0.3px;
   text-transform: none;
   z-index: 10;
+  max-width: 90%;
+  white-space: normal;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .masonry .card .location-overlay * {
