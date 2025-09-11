@@ -110,6 +110,40 @@
       
       // Load portrait when page loads
       loadPortrait();
+      
+      // Footer scroll behavior
+      let lastScrollTop = 0;
+      let ticking = false;
+      const footer = document.querySelector('.site-footer');
+      
+      function updateFooterVisibility() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollDirection = scrollTop > lastScrollTop ? 'down' : 'up';
+        
+        if (footer) {
+          if (scrollDirection === 'down' && scrollTop > 100) {
+            // Scrolling down - hide footer
+            footer.style.transform = 'translateY(100%)';
+            footer.style.transition = 'transform 0.3s ease-in-out';
+          } else if (scrollDirection === 'up' || scrollTop <= 100) {
+            // Scrolling up or near top - show footer
+            footer.style.transform = 'translateY(0)';
+            footer.style.transition = 'transform 0.3s ease-in-out';
+          }
+        }
+        
+        lastScrollTop = scrollTop;
+        ticking = false;
+      }
+      
+      function requestTick() {
+        if (!ticking) {
+          requestAnimationFrame(updateFooterVisibility);
+          ticking = true;
+        }
+      }
+      
+      window.addEventListener('scroll', requestTick, { passive: true });
     </script>
 </body>
 </html>
