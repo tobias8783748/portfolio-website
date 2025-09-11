@@ -13,7 +13,7 @@ async function resizeImage(inputPath, outputPath) {
   try {
     await sharp(inputPath)
       .rotate() // This automatically rotates based on EXIF orientation
-      .resize(1920, 1280, {
+      .resize(2400, 1600, {
         fit: 'inside',
         withoutEnlargement: true
       })
