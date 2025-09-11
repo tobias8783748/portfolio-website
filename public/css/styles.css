@@ -468,7 +468,6 @@ body {
 .filter-link:hover {
   background: #f5f5f5;
   color: var(--text);
-  animation: hvr-float 0.3s ease-in-out;
 }
 
 .filter-link[aria-current="true"] {
