@@ -18,8 +18,8 @@ async function resizeImage(inputPath, outputPath) {
     const isPortrait = metadata.height > metadata.width;
     
     // Set max dimensions based on orientation
-    const maxWidth = isPortrait ? 1600 : 2400;
-    const maxHeight = isPortrait ? 2400 : 1600;
+    const maxWidth = isPortrait ? 1300 : 2400;
+    const maxHeight = isPortrait ? 1950 : 1600;
     
     await image
       .rotate() // This automatically rotates based on EXIF orientation
