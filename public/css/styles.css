@@ -212,6 +212,9 @@ body {
   padding: 20px 80px 100px 80px !important;
   position: relative;
   text-align: left;
+  margin-top: 40px;
+  color: #666;
+  font-size: 14px;
 }
 #image-counter::before {
   content: '';
