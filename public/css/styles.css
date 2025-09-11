@@ -32,7 +32,7 @@ body {
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(0,0,0,0.08);
 }
-.header-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; padding: 0 80px; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 96px; padding: 0 80px; }
 .logo { color: var(--text); text-decoration: none; font-weight: 700; letter-spacing: 1px; font-size: 36px; padding: 12px 0; }
 .logo span { color: var(--accent); }
 .nav a { color: var(--muted); text-decoration: none; margin-left: 20px; }
