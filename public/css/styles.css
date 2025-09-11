@@ -324,12 +324,13 @@ body {
 }
 
 #nav-menu a {
-  padding: 8px 12px;
-  font-size: 13px;
+  padding: 10px 12px;
+  font-size: 14px;
   margin: 0;
   line-height: 1.2;
   display: block;
-  border-radius: 7px;
+  border-radius: 8px;
+  color: #111111;
 }
 
 .dropdown-menu a:hover {
@@ -337,25 +338,24 @@ body {
 }
 
 #nav-menu a:hover {
-  background: #f5f5f5;
+  background: #f3f4f6;
   margin: 0;
-  padding: 8px 12px;
-  border-radius: 7px;
+  padding: 10px 12px;
+  border-radius: 8px;
 }
 
 /* Specific styling for hamburger nav menu */
 #nav-menu {
   position: absolute !important;
-  top: 100% !important;
+  top: calc(100% + 8px) !important;
   left: 0 !important;
   right: auto !important;
-  background: white;
-  border: 1px solid rgba(0,0,0,0.1);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  padding: 0;
-  min-width: 100px;
-  max-width: 140px;
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  padding: 8px;
+  min-width: 180px;
   display: none;
   z-index: 50;
   white-space: nowrap;
