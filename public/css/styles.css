@@ -321,6 +321,21 @@ body {
   background: #f5f5f5;
 }
 
+/* Specific styling for hamburger nav menu */
+#nav-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  padding: 8px 0;
+  min-width: 120px;
+  display: none;
+  z-index: 50;
+}
+
 /* Filter Bar Styles */
 .filterbar {
   display: flex;
