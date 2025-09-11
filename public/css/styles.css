@@ -32,7 +32,7 @@ body {
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(0,0,0,0.08);
 }
-.header-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+.header-inner { display: flex; align-items: center; justify-content: flex-start; height: 72px; padding: 0 80px; }
 .logo { color: var(--text); text-decoration: none; font-weight: 700; letter-spacing: 1px; font-size: 36px; }
 .logo span { color: var(--accent); }
 .nav a { color: var(--muted); text-decoration: none; margin-left: 20px; }
@@ -170,6 +170,7 @@ body {
   .masonry { column-count: 1; column-gap: 0; padding: 0 20px; }
   .filterbar { padding: 0 20px; margin: 0 auto 30px auto; }
   .site-footer { padding: 20px 20px; }
+  .header-inner { padding: 0 20px; }
   #image-counter { padding: 20px 20px 100px 20px !important; }
   #image-counter::before { left: 20px; right: 20px; }
 }
@@ -178,6 +179,7 @@ body {
 @media (min-width: 1600px) {
   .masonry { padding: 0 100px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 100px; margin: 0 auto 40px auto; max-width: none; }
+  .header-inner { padding: 0 100px; }
   #image-counter { padding: 20px 100px 100px 100px !important; }
   #image-counter::before { left: 100px; right: 100px; }
   .site-footer { padding: 20px 100px; }
@@ -186,6 +188,7 @@ body {
 @media (min-width: 1200px) and (max-width: 1599px) {
   .masonry { padding: 0 80px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 80px; margin: 0 auto 40px auto; max-width: none; }
+  .header-inner { padding: 0 80px; }
   #image-counter { padding: 20px 80px 100px 80px !important; }
   #image-counter::before { left: 80px; right: 80px; }
   .site-footer { padding: 20px 80px; }
@@ -194,6 +197,7 @@ body {
 @media (min-width: 900px) and (max-width: 1199px) {
   .masonry { padding: 0 60px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 60px; margin: 0 auto 40px auto; max-width: none; }
+  .header-inner { padding: 0 60px; }
   #image-counter { padding: 20px 60px 100px 60px !important; }
   #image-counter::before { left: 60px; right: 60px; }
   .site-footer { padding: 20px 60px; }
@@ -202,6 +206,7 @@ body {
 @media (min-width: 600px) and (max-width: 899px) {
   .masonry { padding: 0 40px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 40px; margin: 0 auto 40px auto; max-width: none; }
+  .header-inner { padding: 0 40px; }
   #image-counter { padding: 20px 40px 100px 40px !important; }
   #image-counter::before { left: 40px; right: 40px; }
   .site-footer { padding: 20px 40px; }
