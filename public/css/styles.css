@@ -356,7 +356,7 @@ body {
   box-shadow: 0 10px 30px rgba(0,0,0,0.06);
   padding: 8px;
   min-width: 120px;
-  max-width: 140px;
+  max-width: 100px;
   display: none;
   z-index: 50;
   white-space: nowrap;
