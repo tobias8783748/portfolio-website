@@ -324,10 +324,12 @@ body {
 }
 
 #nav-menu a {
-  padding: 6px 12px;
+  padding: 8px 12px;
   font-size: 13px;
   margin: 0;
   line-height: 1.2;
+  display: block;
+  border-radius: 7px;
 }
 
 .dropdown-menu a:hover {
@@ -337,7 +339,8 @@ body {
 #nav-menu a:hover {
   background: #f5f5f5;
   margin: 0;
-  padding: 6px 12px;
+  padding: 8px 12px;
+  border-radius: 7px;
 }
 
 /* Specific styling for hamburger nav menu */
@@ -350,7 +353,7 @@ body {
   border: 1px solid rgba(0,0,0,0.1);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  padding: 4px 0;
+  padding: 0;
   min-width: 100px;
   max-width: 140px;
   display: none;
