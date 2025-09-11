@@ -170,41 +170,41 @@ body {
   .masonry { column-count: 1; column-gap: 0; padding: 0 20px; }
   .filterbar { padding: 0 20px; margin: 0 auto 30px auto; }
   .site-footer { padding: 20px 20px; }
-  #image-counter { padding: 20px 20px !important; }
+  #image-counter { padding: 20px 20px 100px 20px !important; }
 }
 
 /* Responsive padding for gallery and filters with more side space */
 @media (min-width: 1600px) {
   .masonry { padding: 0 100px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 100px; margin: 0 auto 40px auto; max-width: none; }
-  #image-counter { padding: 20px 100px !important; }
+  #image-counter { padding: 20px 100px 100px 100px !important; }
   .site-footer { padding: 20px 100px; }
 }
 
 @media (min-width: 1200px) and (max-width: 1599px) {
   .masonry { padding: 0 80px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 80px; margin: 0 auto 40px auto; max-width: none; }
-  #image-counter { padding: 20px 80px !important; }
+  #image-counter { padding: 20px 80px 100px 80px !important; }
   .site-footer { padding: 20px 80px; }
 }
 
 @media (min-width: 900px) and (max-width: 1199px) {
   .masonry { padding: 0 60px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 60px; margin: 0 auto 40px auto; max-width: none; }
-  #image-counter { padding: 20px 60px !important; }
+  #image-counter { padding: 20px 60px 100px 60px !important; }
   .site-footer { padding: 20px 60px; }
 }
 
 @media (min-width: 600px) and (max-width: 899px) {
   .masonry { padding: 0 40px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 40px; margin: 0 auto 40px auto; max-width: none; }
-  #image-counter { padding: 20px 40px !important; }
+  #image-counter { padding: 20px 40px 100px 40px !important; }
   .site-footer { padding: 20px 40px; }
 }
 
 /* Image counter styling */
 #image-counter {
-  padding: 20px 80px !important;
+  padding: 20px 80px 100px 80px !important;
   position: relative;
 }
 #image-counter::before {
