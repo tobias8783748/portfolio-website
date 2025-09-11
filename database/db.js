@@ -110,6 +110,8 @@ class ImageDatabase {
       tags: imageData.tags || [],
       featured: imageData.featured || false,
       description: imageData.description || '',
+      fileSize: imageData.fileSize || null,
+      fileSizeBytes: imageData.fileSizeBytes || null,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
     };

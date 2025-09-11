@@ -104,7 +104,13 @@ body {
   cursor: pointer; 
   vertical-align: top;
 }
-.masonry .card img { border-radius: 0 !important; transition: opacity 0.3s ease; }
+.masonry .card img { 
+  border-radius: 0 !important; 
+  transition: opacity 0.3s ease; 
+  object-fit: contain !important;
+  max-width: 100%;
+  height: auto;
+}
 .masonry .card .info { display: none; }
 .masonry .card .location-overlay { 
   position: absolute; 
@@ -475,6 +481,8 @@ body {
   height: auto;
   display: block;
   border-radius: 0 !important;
+  object-fit: contain !important;
+  max-width: 100%;
 }
 
 #gallery-grid .card .info {

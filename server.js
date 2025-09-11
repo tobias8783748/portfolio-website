@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 3000;
 async function resizeImage(inputPath, outputPath) {
   try {
     await sharp(inputPath)
+      .rotate() // This automatically rotates based on EXIF orientation
       .resize(1920, 1280, {
         fit: 'inside',
         withoutEnlargement: true
