@@ -125,6 +125,14 @@ body {
   transition: opacity 0.3s ease; 
   pointer-events: none;
   text-shadow: 0 2px 4px rgba(0,0,0,0.7);
+  line-height: 1.2;
+  font-family: inherit;
+}
+
+.masonry .card .location-overlay * {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  color: inherit !important;
 }
 .masonry .card:hover img { opacity: 0.7; }
 .masonry .card:hover .location-overlay { opacity: 1; }
