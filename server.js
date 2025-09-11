@@ -11,9 +11,19 @@ const PORT = process.env.PORT || 3000;
 // Image resizing function
 async function resizeImage(inputPath, outputPath) {
   try {
-    await sharp(inputPath)
+    const image = sharp(inputPath);
+    const metadata = await image.metadata();
+    
+    // Determine if image is portrait or landscape
+    const isPortrait = metadata.height > metadata.width;
+    
+    // Set max dimensions based on orientation
+    const maxWidth = isPortrait ? 1600 : 2400;
+    const maxHeight = isPortrait ? 2400 : 1600;
+    
+    await image
       .rotate() // This automatically rotates based on EXIF orientation
-      .resize(2400, 1600, {
+      .resize(maxWidth, maxHeight, {
         fit: 'inside',
         withoutEnlargement: true
       })
