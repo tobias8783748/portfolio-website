@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Proxima+Nova:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bg: #FDF1EC;
+  --bg: #ffffff;
   --card: #ffffff;
   --text: #111111;
   --muted: #6b7280;
@@ -28,8 +28,9 @@ body {
 
 .site-header {
   position: sticky; top: 0; z-index: 50;
-  background: transparent;
-  padding: 20px 0;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
 }
 .header-inner { 
   display: flex; 
@@ -61,7 +62,7 @@ body {
   position: relative;
   display: grid; place-items: center;
   min-height: 68vh;
-  background: #FDF1EC;
+  background: #f7f7f8;
 }
 .hero-content { text-align: center; padding: 64px 0; }
 .hero h1 { font-size: clamp(28px, 5vw, 48px); margin: 0 0 12px; font-weight: 500; }
