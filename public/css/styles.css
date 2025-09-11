@@ -355,7 +355,8 @@ body {
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.06);
   padding: 8px;
-  min-width: 180px;
+  min-width: 120px;
+  max-width: 140px;
   display: none;
   z-index: 50;
   white-space: nowrap;
