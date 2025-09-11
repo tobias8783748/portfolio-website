@@ -563,9 +563,9 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
 		// Get file size
 		const stats = fs.statSync(finalFilePath);
 		const fileSizeBytes = stats.size;
-		const fileSizeKB = Math.round(fileSizeBytes / 1024);
+		const fileSizeKB = Math.round(fileSizeBytes / 1024 * 100) / 100;
 		const fileSizeMB = Math.round(fileSizeBytes / (1024 * 1024) * 100) / 100;
-		const fileSizeFormatted = fileSizeMB >= 1 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
+		const fileSizeFormatted = fileSizeMB >= 1 ? `${fileSizeMB} MB` : fileSizeKB >= 1 ? `${fileSizeKB} KB` : `${fileSizeBytes} bytes`;
 		
 		// Prepare image data
 		const imageData = {
@@ -656,9 +656,9 @@ app.post('/api/bulk-upload', upload.array('images', 100), async (req, res) => {
 				// Get file size
 				const stats = fs.statSync(finalFilePath);
 				const fileSizeBytes = stats.size;
-				const fileSizeKB = Math.round(fileSizeBytes / 1024);
+				const fileSizeKB = Math.round(fileSizeBytes / 1024 * 100) / 100;
 				const fileSizeMB = Math.round(fileSizeBytes / (1024 * 1024) * 100) / 100;
-				const fileSizeFormatted = fileSizeMB >= 1 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
+				const fileSizeFormatted = fileSizeMB >= 1 ? `${fileSizeMB} MB` : fileSizeKB >= 1 ? `${fileSizeKB} KB` : `${fileSizeBytes} bytes`;
 				
 				// Prepare image data with defaults
 				const imageData = {
@@ -789,5 +789,6 @@ app.post('/api/sync', async (req, res) => {
 app.listen(PORT, () => {
 	console.log(`Server running at http://localhost:${PORT}`);
 });
+
 
 
