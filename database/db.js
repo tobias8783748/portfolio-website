@@ -12,6 +12,12 @@ class ImageDatabase {
     this.cacheTimeout = 30000; // 30 seconds
   }
 
+  clearCache() {
+    this.cache = null;
+    this.cacheTime = 0;
+    console.log('Database cache cleared');
+  }
+
   async loadDatabase() {
     const now = Date.now();
     if (this.cache && (now - this.cacheTime) < this.cacheTimeout) {

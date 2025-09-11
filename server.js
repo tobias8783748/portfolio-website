@@ -188,7 +188,18 @@ app.post('/api/clear-disk', async (req, res) => {
 		};
 
 		fs.writeFileSync(persistentDbPath, JSON.stringify(emptyDb, null, 2));
-		console.log('Database cleared and reset to empty state');
+		console.log('Database file written with empty state');
+
+		// Clear database cache to force reload
+		if (db.clearCache) {
+			db.clearCache();
+		}
+
+		// Verify the database was cleared
+		const verifyDb = JSON.parse(fs.readFileSync(persistentDbPath, 'utf8'));
+		console.log('Database verification - images count:', verifyDb.images.length);
+		console.log('Database verification - countries count:', verifyDb.countries.length);
+		console.log('Database verification - tags count:', verifyDb.tags.length);
 
 		res.json({ 
 			message: 'Render disk cleared successfully! You can now upload images with new settings.',
