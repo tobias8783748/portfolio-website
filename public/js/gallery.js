@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     grid.innerHTML = shuffled.map((p, index) => `
       <button class="card" data-id="${p.id}" data-src="${p.src}" data-title="${p.location}" data-index="${index}" style="text-align:left; padding:0; border:none; background:transparent; cursor:pointer; border-radius:0;">
         <img src="${p.src}" alt="${p.location}" style="border-radius:0 !important; -webkit-border-radius:0 !important; -moz-border-radius:0 !important;">
-        <div class="location-overlay">${p.location}</div>
+        <div class="location-overlay">${p.location}, ${p.country}</div>
         <div class="info">
           <p class="title">${p.location}</p>
           <p class="sub">${p.country} • ${p.tags ? p.tags.join(', ') : ''}</p>
