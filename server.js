@@ -560,6 +560,13 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
 			return res.status(500).json({ error: 'Failed to process image' });
 		}
 		
+		// Get file size
+		const stats = fs.statSync(finalFilePath);
+		const fileSizeBytes = stats.size;
+		const fileSizeKB = Math.round(fileSizeBytes / 1024);
+		const fileSizeMB = Math.round(fileSizeBytes / (1024 * 1024) * 100) / 100;
+		const fileSizeFormatted = fileSizeMB >= 1 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
+		
 		// Prepare image data
 		const imageData = {
 			id: id,
@@ -569,6 +576,8 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
 			description: description || '',
 			tags: tags ? tags.split(',').map(t => t.trim()).filter(t => t) : [],
 			featured: false,
+			fileSize: fileSizeFormatted,
+			fileSizeBytes: fileSizeBytes,
 			camera: 'RICOH GR IIIX',
 			focal_length: '28mm',
 			aperture: 'f/2.8',
@@ -644,6 +653,13 @@ app.post('/api/bulk-upload', upload.array('images', 100), async (req, res) => {
 					continue;
 				}
 				
+				// Get file size
+				const stats = fs.statSync(finalFilePath);
+				const fileSizeBytes = stats.size;
+				const fileSizeKB = Math.round(fileSizeBytes / 1024);
+				const fileSizeMB = Math.round(fileSizeBytes / (1024 * 1024) * 100) / 100;
+				const fileSizeFormatted = fileSizeMB >= 1 ? `${fileSizeMB} MB` : `${fileSizeKB} KB`;
+				
 				// Prepare image data with defaults
 				const imageData = {
 					id: id,
@@ -653,6 +669,8 @@ app.post('/api/bulk-upload', upload.array('images', 100), async (req, res) => {
 					description: defaultDescription || '',
 					tags: defaultTags ? defaultTags.split(',').map(t => t.trim()).filter(t => t) : [],
 					featured: false,
+					fileSize: fileSizeFormatted,
+					fileSizeBytes: fileSizeBytes,
 					camera: 'RICOH GR IIIX',
 					focal_length: '28mm',
 					aperture: 'f/2.8',
