@@ -153,6 +153,54 @@ app.get('/api/admin', async (req, res) => {
 	}
 });
 
+// Clear disk endpoint (for fresh uploads)
+app.post('/api/clear-disk', async (req, res) => {
+	try {
+		if (!process.env.RENDER) {
+			return res.status(400).json({ error: 'This endpoint only works on Render' });
+		}
+
+		const persistentImagesPath = '/opt/render/project/src/public/images';
+		const persistentDbPath = '/opt/render/project/src/public/images/database.json';
+
+		// Clear all image directories except temp
+		if (fs.existsSync(persistentImagesPath)) {
+			const items = fs.readdirSync(persistentImagesPath);
+			items.forEach(item => {
+				if (item !== 'temp' && item !== 'database.json') {
+					const itemPath = path.join(persistentImagesPath, item);
+					if (fs.statSync(itemPath).isDirectory()) {
+						fs.rmSync(itemPath, { recursive: true, force: true });
+						console.log(`Removed directory: ${item}`);
+					} else {
+						fs.unlinkSync(itemPath);
+						console.log(`Removed file: ${item}`);
+					}
+				}
+			});
+		}
+
+		// Reset database to empty state
+		const emptyDb = {
+			images: [],
+			countries: [],
+			tags: []
+		};
+
+		fs.writeFileSync(persistentDbPath, JSON.stringify(emptyDb, null, 2));
+		console.log('Database cleared and reset to empty state');
+
+		res.json({ 
+			message: 'Render disk cleared successfully! You can now upload images with new settings.',
+			cleared: true 
+		});
+
+	} catch (error) {
+		console.error('Error clearing Render disk:', error);
+		res.status(500).json({ error: 'Failed to clear disk: ' + error.message });
+	}
+});
+
 // Update image metadata
 app.put('/api/admin/image/:id', async (req, res) => {
 	try {
