@@ -181,6 +181,11 @@ app.get('/api/photos', async (req, res) => {
 		const { country, featured, tags } = req.query;
 		let images = await db.getAllImages();
 		
+		// Filter out development images in production
+		if (process.env.NODE_ENV === 'production' || process.env.RENDER) {
+			images = images.filter(img => !img.isDevelopment);
+		}
+		
 		// Filter by country
 		if (country && country !== 'all') {
 			images = images.filter(img => 
