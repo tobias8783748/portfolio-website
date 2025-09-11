@@ -11,8 +11,18 @@ const PORT = process.env.PORT || 3000;
 // Image resizing function
 async function resizeImage(inputPath, outputPath) {
   try {
+    const metadata = await sharp(inputPath).metadata();
+    const { width, height } = metadata;
+    
+    // Determine if image is portrait or landscape
+    const isPortrait = height > width;
+    
+    // Set max dimensions based on orientation
+    const maxWidth = isPortrait ? 1280 : 1920;
+    const maxHeight = isPortrait ? 1920 : 1280;
+    
     await sharp(inputPath)
-      .resize(1920, 1280, {
+      .resize(maxWidth, maxHeight, {
         fit: 'inside',
         withoutEnlargement: true
       })
