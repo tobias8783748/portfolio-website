@@ -35,6 +35,20 @@
     </header>
 
     <main class="container" style="padding:32px 0 24px; max-width:none; width:100%;">
+        <!-- Sliding Gallery Section -->
+        <section class="sliding-gallery-section">
+            <div class="sliding-gallery-container">
+                <div class="sliding-gallery" id="sliding-gallery">
+                    <!-- Images will be dynamically loaded here -->
+                </div>
+                <div class="sliding-gallery-slider-container">
+                    <input type="range" class="sliding-gallery-slider" id="sliding-gallery-slider" min="0" max="0" value="0" step="1">
+                </div>
+            </div>
+        </section>
+
+        <!-- Full Gallery Section - Hidden on front page -->
+        <section class="full-gallery-section" style="margin-top: 60px; display: none;">
             <div id="country-filters" class="filterbar">
                 <button class="filter-link" data-country="all">All</button>
                 <button class="filter-link active" data-tag="favorites" aria-current="true">Favorites</button>
@@ -56,6 +70,7 @@
         </div>
         <div id="gallery-grid" class="masonry"></div>
         <div id="image-counter"></div>
+        </section>
     </main>
 
     <div id="lightbox" style="position:fixed; inset:0; display:none; background:#ffffff; align-items:center; justify-content:center; z-index:100; padding:10px;">
@@ -79,6 +94,7 @@
         </div>
     </footer>
 
+    <script src="/js/sliding-gallery.js" defer></script>
     <script src="/js/gallery.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.js" defer></script>
     <script>
