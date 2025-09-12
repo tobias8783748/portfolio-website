@@ -6,23 +6,36 @@ class SlidingGallery {
     this.photos = [];
     this.favoritePhotos = [];
     this.currentIndex = 0;
-    this.slidesPerView = 3;
     this.isAutoPlaying = true;
     this.autoPlayInterval = null;
-    this.autoPlayDelay = 5000; // 5 seconds
+    this.autoPlayDelay = 4000; // 4 seconds between slides
     
     this.init();
   }
 
   async init() {
+    console.log('SlidingGallery init started');
+    console.log('Gallery element:', this.gallery);
+    console.log('Slider element:', this.slider);
+    
     await this.loadPhotos();
     this.setupEventListeners();
     this.render();
     
-    // Start auto-play after a short delay to ensure everything is rendered
+    // Debug gallery dimensions
+    console.log('Gallery dimensions after render:', {
+      offsetWidth: this.gallery.offsetWidth,
+      offsetHeight: this.gallery.offsetHeight,
+      clientWidth: this.gallery.clientWidth,
+      clientHeight: this.gallery.clientHeight,
+      scrollWidth: this.gallery.scrollWidth,
+      scrollHeight: this.gallery.scrollHeight
+    });
+    
+    // Start auto-play after a longer delay to ensure everything is stable
     setTimeout(() => {
       this.startAutoPlay();
-    }, 1000);
+    }, 3000);
   }
 
   async loadPhotos() {
@@ -55,10 +68,7 @@ class SlidingGallery {
   setupEventListeners() {
     if (this.slider) {
       this.slider.addEventListener('input', (e) => {
-        const totalSlides = Math.ceil(this.favoritePhotos.length / this.slidesPerView);
-        const sliderValue = parseInt(e.target.value);
-        // Map slider value to middle set
-        this.currentIndex = totalSlides + sliderValue;
+        this.currentIndex = parseInt(e.target.value);
         this.updateSlidePosition();
         this.stopAutoPlay();
       });
@@ -116,138 +126,140 @@ class SlidingGallery {
   }
 
   render() {
-    if (!this.gallery || this.favoritePhotos.length === 0) return;
+    if (!this.gallery || this.favoritePhotos.length === 0) {
+      console.log('No gallery or no favorite photos');
+      console.log('Gallery element:', this.gallery);
+      console.log('Favorite photos length:', this.favoritePhotos.length);
+      return;
+    }
+
+    console.log('Rendering sliding gallery with', this.favoritePhotos.length, 'photos');
+    console.log('Gallery element before render:', this.gallery);
+    console.log('Gallery parent element:', this.gallery.parentElement);
 
     // Clear existing content
     this.gallery.innerHTML = '';
 
-    // Create a continuous loop by duplicating images
-    const totalImages = this.favoritePhotos.length;
-    const totalSlides = Math.ceil(totalImages / this.slidesPerView);
+    // Create slides - 3 images per slide
+    const totalSlides = Math.ceil(this.favoritePhotos.length / 3);
     
-    // Create enough slides for smooth looping (3 sets of images)
-    for (let set = 0; set < 3; set++) {
-      for (let i = 0; i < totalSlides; i++) {
-        const slide = document.createElement('div');
-        slide.className = 'sliding-gallery-slide';
+    for (let i = 0; i < totalSlides; i++) {
+      const slide = document.createElement('div');
+      slide.className = 'sliding-gallery-slide';
+      
+      const startIndex = i * 3;
+      const endIndex = Math.min(startIndex + 3, this.favoritePhotos.length);
+      
+      for (let j = startIndex; j < endIndex; j++) {
+        const photo = this.favoritePhotos[j];
+        const photoElement = document.createElement('div');
+        photoElement.className = 'slide-photo';
         
-        const startIndex = i * this.slidesPerView;
-        const endIndex = Math.min(startIndex + this.slidesPerView, totalImages);
+        photoElement.innerHTML = `
+          <img src="${photo.src}" alt="${photo.location}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+          <div class="slide-overlay">
+            <h3>${photo.location}</h3>
+            <p>${photo.country}</p>
+          </div>
+        `;
         
-        for (let j = startIndex; j < endIndex; j++) {
-          const photo = this.favoritePhotos[j];
-          const photoElement = document.createElement('div');
-          photoElement.className = 'slide-photo';
-          photoElement.style.flex = `0 0 ${100 / this.slidesPerView}%`;
-          
-          photoElement.innerHTML = `
-            <img src="${photo.src}" alt="${photo.location}" loading="lazy">
-            <div class="slide-overlay">
-              <h3>${photo.location}</h3>
-              <p>${photo.country}</p>
-            </div>
-          `;
-          
-          // Add click handler to open lightbox
-          photoElement.addEventListener('click', () => {
-            this.openLightbox(photo);
-          });
-          
-          slide.appendChild(photoElement);
-        }
+        console.log('Created photo element for:', photo.location, 'src:', photo.src);
         
-        this.gallery.appendChild(slide);
+        // Add click handler to open lightbox
+        photoElement.addEventListener('click', () => {
+          this.openLightbox(photo);
+        });
+        
+        slide.appendChild(photoElement);
       }
+      
+      this.gallery.appendChild(slide);
     }
 
-    // Setup slider for the original set of slides
+    // Setup slider
     if (this.slider) {
       this.slider.max = totalSlides - 1;
       this.slider.value = 0;
     }
 
-    // Start from the middle set (second set) for seamless looping
-    this.currentIndex = totalSlides;
+    this.currentIndex = 0;
     this.updateSlidePosition();
+    
+    // Debug: Check if content was added
+    console.log('Gallery after render:', this.gallery);
+    console.log('Gallery children count:', this.gallery.children.length);
+    console.log('Gallery innerHTML length:', this.gallery.innerHTML.length);
+    
+    // Check if images are visible
+    const images = this.gallery.querySelectorAll('img');
+    console.log('Images found:', images.length);
+    images.forEach((img, index) => {
+      console.log(`Image ${index}:`, {
+        src: img.src,
+        alt: img.alt,
+        width: img.offsetWidth,
+        height: img.offsetHeight,
+        naturalWidth: img.naturalWidth,
+        naturalHeight: img.naturalHeight
+      });
+    });
   }
 
   updateSlidePosition() {
     if (!this.gallery) return;
     
-    const slideWidth = 100 / this.slidesPerView;
+    const slideWidth = 100;
     const translateX = -this.currentIndex * slideWidth;
+    console.log('Updating slide position:', {
+      currentIndex: this.currentIndex,
+      translateX: translateX
+    });
+    
     this.gallery.style.transform = `translateX(${translateX}%)`;
     
-    // Update slider to show position within the original set
+    // Update slider
     if (this.slider) {
-      const totalSlides = Math.ceil(this.favoritePhotos.length / this.slidesPerView);
-      const sliderValue = this.currentIndex - totalSlides;
-      this.slider.value = Math.max(0, Math.min(totalSlides - 1, sliderValue));
+      this.slider.value = this.currentIndex;
     }
   }
 
   nextSlide() {
-    const totalSlides = Math.ceil(this.favoritePhotos.length / this.slidesPerView);
-    this.currentIndex++;
-    
-    // Reset to beginning of middle set when reaching end of third set
-    if (this.currentIndex >= totalSlides * 2) {
-      this.currentIndex = totalSlides;
-      // Smoothly transition without animation
-      this.gallery.style.transition = 'none';
-      this.updateSlidePosition();
-      // Re-enable transition after a brief delay
-      setTimeout(() => {
-        this.gallery.style.transition = 'transform 0.5s ease-in-out';
-      }, 50);
-    } else {
-      this.updateSlidePosition();
-    }
+    const totalSlides = Math.ceil(this.favoritePhotos.length / 3);
+    this.currentIndex = (this.currentIndex + 1) % totalSlides;
+    this.updateSlidePosition();
   }
 
   previousSlide() {
-    const totalSlides = Math.ceil(this.favoritePhotos.length / this.slidesPerView);
-    this.currentIndex--;
-    
-    // Jump to end of middle set when reaching beginning of first set
-    if (this.currentIndex < totalSlides) {
-      this.currentIndex = totalSlides * 2 - 1;
-      // Smoothly transition without animation
-      this.gallery.style.transition = 'none';
-      this.updateSlidePosition();
-      // Re-enable transition after a brief delay
-      setTimeout(() => {
-        this.gallery.style.transition = 'transform 0.5s ease-in-out';
-      }, 50);
-    } else {
-      this.updateSlidePosition();
-    }
+    const totalSlides = Math.ceil(this.favoritePhotos.length / 3);
+    this.currentIndex = this.currentIndex === 0 ? totalSlides - 1 : this.currentIndex - 1;
+    this.updateSlidePosition();
   }
 
   goToSlide(index) {
-    const totalSlides = Math.ceil(this.favoritePhotos.length / this.slidesPerView);
+    const totalSlides = Math.ceil(this.favoritePhotos.length / 3);
     if (index >= 0 && index < totalSlides) {
-      // Map slider index to middle set
-      this.currentIndex = totalSlides + index;
+      this.currentIndex = index;
       this.updateSlidePosition();
     }
   }
 
   startAutoPlay() {
     this.stopAutoPlay();
-    const totalSlides = Math.ceil(this.favoritePhotos.length / this.slidesPerView);
+    const totalSlides = Math.ceil(this.favoritePhotos.length / 3);
     console.log('Starting auto-play:', {
       isAutoPlaying: this.isAutoPlaying,
       favoritePhotosLength: this.favoritePhotos.length,
-      slidesPerView: this.slidesPerView,
-      totalSlides: totalSlides
+      totalSlides: totalSlides,
+      currentIndex: this.currentIndex
     });
     
     if (this.isAutoPlaying && totalSlides > 1) {
       this.autoPlayInterval = setInterval(() => {
-        console.log('Auto-sliding to next slide');
+        console.log('Auto-sliding to next slide, current:', this.currentIndex);
         this.nextSlide();
       }, this.autoPlayDelay);
+    } else {
+      console.log('Auto-play not started - not enough slides or disabled');
     }
   }
 
