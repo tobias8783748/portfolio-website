@@ -107,14 +107,7 @@ class SlidingGallery {
       
       photoElement.appendChild(img);
       
-      // Add overlay
-      const overlay = document.createElement('div');
-      overlay.className = 'slide-overlay';
-      overlay.innerHTML = `
-        <h3>${photo.location}</h3>
-        <p>${photo.country}</p>
-      `;
-      photoElement.appendChild(overlay);
+      // No overlay - only pause functionality on hover
       
       // Add click handler to open lightbox
       photoElement.addEventListener('click', () => {
@@ -148,7 +141,6 @@ class SlidingGallery {
     // Each photo is 33.333vw wide, so we move by that amount
     const photoWidth = 33.333; // 33.333vw
     const translateX = -(this.currentPosition * photoWidth);
-    
     this.gallery.style.transform = `translateX(${translateX}vw)`;
   }
 
