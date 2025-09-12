@@ -36,7 +36,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   const lightboxClose = document.getElementById('lightbox-close');
   
   // Skip gallery loading if grid is hidden (homepage)
-  if (grid && grid.closest('section').style.display === 'none') {
+  if (grid && grid.closest('section') && grid.closest('section').style.display === 'none') {
+    return;
+  }
+  
+  // Also skip if we're on the homepage (has sliding gallery)
+  if (window.location.pathname === '/' && document.getElementById('sliding-gallery')) {
     return;
   }
 
