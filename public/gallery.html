@@ -17,20 +17,24 @@
 
 </head>
 <body>
+    <input type="checkbox" id="toggle" class="input-toggler">   
+    <label for="toggle" class="menu-toggler">
+        <span class="menu-toggler-line"></span>
+        <span class="menu-toggler-line"></span>
+        <span class="menu-toggler-line"></span>
+    </label>
+
+    <aside class="sidebar">
+        <ul class="menu">
+            <li><a class="menu-link" href="/">Home</a></li>
+            <li><a class="menu-link" href="/gallery.html">Images</a></li>
+            <li><a class="menu-link" href="/about.html">About</a></li>
+        </ul>
+    </aside>
+
     <header class="site-header">
         <div class="container header-inner">
             <a href="/" class="logo">tsa.photos</a>
-            <div class="dropdown-container">
-                <button class="dropdown-trigger" id="nav-menu-btn" aria-label="Menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                <div class="dropdown-menu" id="nav-menu">
-                    <a aria-current="page" href="/gallery.html">Images</a>
-                    <a href="/about.html">About</a>
-                </div>
-            </div>
         </div>
     </header>
 
