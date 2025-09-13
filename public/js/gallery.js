@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
+
   let photos = [];
   let currentFilter = 'favorites'; // Start with 'all' filter as default
   let currentRegion = null; // For Japan region filtering
