@@ -2,33 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
 
-  // Hamburger menu functionality - always initialize
-  const navMenuBtn = document.getElementById('nav-menu-btn');
-  const navMenu = document.getElementById('nav-menu');
-  
-  if (navMenuBtn && navMenu) {
-    navMenuBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      navMenuBtn.classList.toggle('active');
-      navMenu.classList.toggle('show');
-    });
-    
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!navMenuBtn.contains(e.target) && !navMenu.contains(e.target)) {
-        navMenuBtn.classList.remove('active');
-        navMenu.classList.remove('show');
-      }
-    });
-    
-    // Close menu when clicking on a link
-    navMenu.addEventListener('click', (e) => {
-      if (e.target.tagName === 'A') {
-        navMenuBtn.classList.remove('active');
-        navMenu.classList.remove('show');
-      }
-    });
-  }
+  // Checkbox-based menu is CSS-only, no JavaScript needed
 
   const grid = document.getElementById('gallery-grid');
   const lightbox = document.getElementById('lightbox');
