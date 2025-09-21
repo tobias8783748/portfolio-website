@@ -119,16 +119,27 @@ body {
   background: #fafafa;
   color: var(--text);
   overflow-x: hidden;
-  padding-bottom: 100px;
+  padding-top: 100px;
 }
 
 .container { width: 100%; max-width: none; margin: 0 auto; padding: 0 20px; }
 
 .site-header {
-  position: relative; 
-  z-index: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 999;
   background: #fafafa;
   backdrop-filter: blur(10px);
+  transition: transform 0.3s ease-in-out;
+  will-change: transform;
+}
+
+.site-header.header-hidden {
+  transform: translateY(-100%) !important;
+  z-index: 999 !important;
 }
 .header-inner { display: flex; align-items: center; justify-content: space-between; height: 100px; padding: 0 80px; }
 .logo { 
@@ -139,6 +150,8 @@ body {
   font-size: 50px; 
   padding: 12px 0; 
   font-family: 'Proxima Nova', sans-serif;
+  cursor: pointer;
+  display: inline-block;
 }
 .logo span { color: var(--accent); }
 .nav a { color: var(--muted); text-decoration: none; margin-left: 20px; }
@@ -361,7 +374,7 @@ body {
   .filterbar { padding: 0 20px; margin: 0 auto 30px auto; }
   .site-footer { padding: 20px 20px; }
   .header-inner { padding: 0 20px; }
-  #image-counter { padding: 20px 20px 100px 20px !important; }
+  #image-counter { padding: 20px 20px 40px 20px !important; }
   #image-counter::before { left: 20px; right: 20px; }
   .menu-toggler { right: 20px !important; }
 }
@@ -371,7 +384,7 @@ body {
   .masonry { padding: 0 100px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 100px; margin: 0 auto 40px auto; max-width: none; }
   .header-inner { padding: 0 100px; }
-  #image-counter { padding: 20px 100px 100px 100px !important; }
+  #image-counter { padding: 20px 100px 40px 100px !important; }
   #image-counter::before { left: 100px; right: 100px; }
   .site-footer { padding: 20px 100px; }
   .menu-toggler { right: 100px !important; }
@@ -381,7 +394,7 @@ body {
   .masonry { padding: 0 80px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 80px; margin: 0 auto 40px auto; max-width: none; }
   .header-inner { padding: 0 80px; }
-  #image-counter { padding: 20px 80px 100px 80px !important; }
+  #image-counter { padding: 20px 80px 40px 80px !important; }
   #image-counter::before { left: 80px; right: 80px; }
   .site-footer { padding: 20px 80px; }
   .menu-toggler { right: 80px !important; }
@@ -391,7 +404,7 @@ body {
   .masonry { padding: 0 60px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 60px; margin: 0 auto 40px auto; max-width: none; }
   .header-inner { padding: 0 60px; }
-  #image-counter { padding: 20px 60px 100px 60px !important; }
+  #image-counter { padding: 20px 60px 40px 60px !important; }
   #image-counter::before { left: 60px; right: 60px; }
   .site-footer { padding: 20px 60px; }
   .menu-toggler { right: 60px !important; }
@@ -401,7 +414,7 @@ body {
   .masonry { padding: 0 40px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 40px; margin: 0 auto 40px auto; max-width: none; }
   .header-inner { padding: 0 40px; }
-  #image-counter { padding: 20px 40px 100px 40px !important; }
+  #image-counter { padding: 20px 40px 40px 40px !important; }
   #image-counter::before { left: 40px; right: 40px; }
   .site-footer { padding: 20px 40px; }
   .menu-toggler { right: 40px !important; }
@@ -409,7 +422,7 @@ body {
 
 /* Image counter styling */
 #image-counter {
-  padding: 20px 80px 100px 80px !important;
+  padding: 20px 80px 40px 80px !important;
   position: relative;
   text-align: center;
   margin-top: 40px;
@@ -514,7 +527,7 @@ body {
   align-items: center;
   transform: translateX(-100%);
   transition: all .40s ease-out;
-  z-index: 100;
+  z-index: 1000;
 }
 
 .menu {
@@ -548,7 +561,7 @@ body {
 .input-toggler:checked ~ .sidebar {
   transform: translateX(0%);
   opacity: .98;
-  z-index: 100;
+  z-index: 1000;
 }
 
 
@@ -556,6 +569,20 @@ body {
 .sidebar {
   min-width: 100vw;
   min-height: 100vh;
+}
+
+/* Hide hamburger menu when lightbox is active */
+#lightbox[style*="display: block"] ~ .menu-toggler,
+#lightbox[style*="display: flex"] ~ .menu-toggler,
+body:has(#lightbox[style*="display: block"]) .menu-toggler,
+body:has(#lightbox[style*="display: flex"]) .menu-toggler {
+  display: none !important;
+}
+
+/* Alternative approach - hide when lightbox is visible */
+.lightbox-active .menu-toggler,
+.lightbox-active .sidebar {
+  display: none !important;
 }
 
 

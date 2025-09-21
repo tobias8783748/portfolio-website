@@ -63,9 +63,13 @@
         <div id="image-counter"></div>
     </main>
 
-    <div id="lightbox" style="position:fixed; inset:0; display:none; background:#ffffff; align-items:center; justify-content:center; z-index:100; padding:20px;">
-        <button id="lightbox-close" aria-label="Close" style="position:absolute; top:20px; right:20px; background:rgba(255,255,255,0.95); border:none; color:#111; padding:12px 16px; font-size:14px; opacity:0.9; z-index:101; min-width:48px; min-height:32px; box-shadow:0 4px 12px rgba(0,0,0,0.15); transition:all 0.2s ease; cursor:pointer;">Close</button>
-        <button id="lightbox-prev" aria-label="Previous" style="position:absolute; left:20px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.95); border:none; color:#111; padding:16px 12px; font-size:20px; opacity:0.9; z-index:101; min-width:48px; min-height:48px; box-shadow:0 4px 12px rgba(0,0,0,0.15); transition:all 0.2s ease; cursor:pointer;">←</button>
+    <div id="lightbox" style="position:fixed; inset:0; display:none; background:#ffffff; align-items:center; justify-content:center; z-index:1100; padding:20px;">
+        <button id="lightbox-close" aria-label="Close" style="position:absolute; top:20px; right:20px; background:transparent; border:none; padding:0; opacity:1; z-index:1102; transition:all 0.2s ease; cursor:pointer;">
+            <img src="/images/close-square-filled-svgrepo-com.svg" alt="Close" style="width:48px; height:48px; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.15));">
+        </button>
+        <button id="lightbox-prev" aria-label="Previous" style="position:absolute; left:20px; top:50%; transform:translateY(-50%); background:transparent; border:none; padding:0; opacity:0.9; z-index:1101; transition:all 0.2s ease; cursor:pointer;">
+            <img src="/images/arrow-left-square-svgrepo-com.svg" alt="Previous" style="width:48px; height:48px; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.15));">
+        </button>
         <div style="display:flex; flex-direction:column; align-items:center; max-width:90%; max-height:90%;">
             <img id="lightbox-img" alt="" style="max-width:100%; max-height:80vh; width:auto; height:auto; border-radius:0; object-fit:contain; margin:0 auto;" />
             <div id="lightbox-metadata" style="margin-top:20px; text-align:center; max-width:600px; padding:0 20px;">
@@ -75,7 +79,9 @@
                 <div id="lightbox-tags" style="font-size:14px; color:#888;"></div>
             </div>
         </div>
-        <button id="lightbox-next" aria-label="Next" style="position:absolute; right:20px; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.95); border:none; color:#111; padding:16px 12px; font-size:20px; opacity:0.9; z-index:101; min-width:48px; min-height:48px; box-shadow:0 4px 12px rgba(0,0,0,0.15); transition:all 0.2s ease; cursor:pointer;">→</button>
+        <button id="lightbox-next" aria-label="Next" style="position:absolute; right:20px; top:50%; transform:translateY(-50%); background:transparent; border:none; padding:0; opacity:0.9; z-index:1101; transition:all 0.2s ease; cursor:pointer;">
+            <img src="/images/arrow-right-square-svgrepo-com-2.svg" alt="Next" style="width:48px; height:48px; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.15));">
+        </button>
     </div>
 
     <footer class="site-footer">
@@ -84,6 +90,7 @@
         </div>
     </footer>
 
+    <script src="/js/header-scroll.js" defer></script>
     <script src="/js/gallery.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.js" defer></script>
     <script>

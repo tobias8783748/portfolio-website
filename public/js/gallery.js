@@ -171,6 +171,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     lightbox.style.display = 'flex';
     document.body.style.overflow = 'hidden';
     
+    // Hide hamburger menu when lightbox is active
+    document.body.classList.add('lightbox-active');
+    // Uncheck the menu toggle to close any open menu
+    const menuToggle = document.getElementById('toggle');
+    if (menuToggle) menuToggle.checked = false;
+    
     // Update lightbox metadata
     const photo = filteredPhotos[index];
     if (photo) {
@@ -197,6 +203,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     lightbox.style.display = 'none';
     lightboxImg.src = '';
     document.body.style.overflow = '';
+    
+    // Remove lightbox-active class to show hamburger menu again
+    document.body.classList.remove('lightbox-active');
+    
     history.replaceState(null, '', location.pathname + location.search);
   }
   
