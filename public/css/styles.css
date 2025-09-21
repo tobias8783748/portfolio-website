@@ -585,6 +585,31 @@ body:has(#lightbox[style*="display: flex"]) .menu-toggler {
   display: none !important;
 }
 
+/* Simple 3D Hover Effect for Lightbox Image */
+.lightbox-image-container {
+  perspective: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox-image-3d {
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  border-radius: 0;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.lightbox-image-3d:hover {
+  max-height: calc(100vh - 40px) !important;
+  height: calc(100vh - 40px) !important;
+  width: auto !important;
+  object-fit: contain !important;
+}
+
 
 
 /* Filter Bar Styles */

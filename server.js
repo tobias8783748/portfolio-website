@@ -135,6 +135,36 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// Favicon fallback route
+app.get('/favicon.ico', (req, res) => {
+	// Serve camera.svg as favicon if favicon.ico doesn't exist
+	const faviconPath = path.join(__dirname, 'public', 'favicon.ico');
+	const cameraSvgPath = path.join(__dirname, 'public', 'images', 'camera.svg');
+	
+	if (fs.existsSync(faviconPath)) {
+		res.sendFile(faviconPath);
+	} else if (fs.existsSync(cameraSvgPath)) {
+		res.type('image/svg+xml');
+		res.sendFile(cameraSvgPath);
+	} else {
+		res.status(404).send('Favicon not found');
+	}
+});
+
+// Portrait image route for production reliability
+app.get('/images/portrait.jpeg', (req, res) => {
+	const localPortraitPath = path.join(__dirname, 'public', 'images', 'portrait.jpeg');
+	const persistentPortraitPath = process.env.RENDER ? '/opt/render/project/src/public/images/portrait.jpeg' : localPortraitPath;
+	
+	if (fs.existsSync(persistentPortraitPath)) {
+		res.sendFile(persistentPortraitPath);
+	} else if (fs.existsSync(localPortraitPath)) {
+		res.sendFile(localPortraitPath);
+	} else {
+		res.status(404).send('Portrait not found');
+	}
+});
+
 // Admin endpoint to view and edit metadata
 app.get('/api/admin', async (req, res) => {
 	try {

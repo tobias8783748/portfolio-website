@@ -90,7 +90,7 @@
         });
       }
       
-      // Load portrait from database if available
+      // Load portrait from database if available, with production fallback
       async function loadPortrait() {
         try {
           const response = await fetch('/api/photos');
@@ -98,18 +98,23 @@
           
           // Look for a portrait image (you can identify it by tags, description, or filename)
           const portrait = images.find(img => 
-            img.tags.includes('portrait') || 
-            img.description.toLowerCase().includes('portrait') ||
-            img.filename.toLowerCase().includes('portrait')
+            img.tags && img.tags.includes('portrait') || 
+            (img.description && img.description.toLowerCase().includes('portrait')) ||
+            (img.filename && img.filename.toLowerCase().includes('portrait'))
           );
           
           if (portrait) {
             const img = document.getElementById('portrait-img');
             img.src = `/images/${portrait.country}/${portrait.filename}`;
             img.alt = portrait.location || 'Portrait';
+            console.log('Loaded portrait from database:', portrait.filename);
+          } else {
+            console.log('No portrait found in database, using fallback');
+            // Fallback is already set in HTML: /images/portrait.jpeg
           }
         } catch (error) {
-          console.log('Using fallback portrait image');
+          console.log('Error loading portrait from database, using fallback:', error);
+          // Fallback portrait.jpeg will be used
         }
       }
       

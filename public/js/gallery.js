@@ -187,12 +187,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       
       if (locationEl) locationEl.textContent = `${photo.location}, ${photo.country}`;
       if (descriptionEl) {
-        if (photo.description && photo.description.trim()) {
-          descriptionEl.textContent = photo.description;
-          descriptionEl.style.display = 'block';
-        } else {
-          descriptionEl.style.display = 'none';
-        }
+        // Always hide description in lightbox view
+        descriptionEl.style.display = 'none';
       }
       if (detailsEl) detailsEl.textContent = `${photo.camera} • ${photo.focal_length} • ${photo.aperture} • ${photo.shutter_speed} • ${photo.iso}`;
       if (tagsEl) tagsEl.style.display = 'none';
