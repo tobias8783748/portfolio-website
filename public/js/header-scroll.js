@@ -8,8 +8,14 @@
     header = document.querySelector('.site-header');
     
     if (!header) {
+      console.log('Header not found');
       return;
     }
+    
+    console.log('Header auto-hide initialized');
+    console.log('Document height:', document.documentElement.scrollHeight);
+    console.log('Window height:', window.innerHeight);
+    console.log('Can scroll?', document.documentElement.scrollHeight > window.innerHeight);
     
     // Add scroll listener
     window.addEventListener('scroll', requestTick, { passive: true });
@@ -27,26 +33,32 @@
     
     if (!header) return;
     
-    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    // More reliable scroll detection
+    const currentScroll = window.pageYOffset || window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    
+    console.log('Scroll detected:', currentScroll, 'Last:', lastScrollTop);
     
     // Always show header at the very top
     if (currentScroll <= 0) {
+      console.log('At top - showing header');
       showHeader();
       lastScrollTop = currentScroll;
       return;
     }
     
     // Only process if there's a meaningful scroll difference
-    if (Math.abs(currentScroll - lastScrollTop) < 5) {
+    if (Math.abs(currentScroll - lastScrollTop) < 3) {
       return;
     }
     
-    // Scrolling down - hide header after 100px
-    if (currentScroll > lastScrollTop && currentScroll > 100) {
+    // Scrolling down - hide header after 40px
+    if (currentScroll > lastScrollTop && currentScroll > 40) {
+      console.log('Hiding header - scrolling down');
       hideHeader();
     } 
     // Scrolling up - show header immediately
     else if (currentScroll < lastScrollTop) {
+      console.log('Showing header - scrolling up');
       showHeader();
     }
     
@@ -54,11 +66,13 @@
   }
   
   function hideHeader() {
+    document.body.classList.add('header-hidden');
     header.classList.add('header-hidden');
     header.style.transform = 'translateY(-100%)';
   }
   
   function showHeader() {
+    document.body.classList.remove('header-hidden');
     header.classList.remove('header-hidden');
     header.style.transform = 'translateY(0px)';
   }

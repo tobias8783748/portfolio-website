@@ -112,6 +112,28 @@ html, body {
   height: 100%; 
   overflow-x: hidden;
 }
+
+/* Ensure gallery page can scroll vertically */
+html.gallery-page, body.gallery-page {
+  min-height: auto;
+  height: auto;
+  overflow-y: auto;
+}
+
+/* Home page should not be scrollable */
+html.front-page, body.front-page {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Adjust footer position for home page */
+body.front-page .site-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
 body {
   margin: 0;
   font-family: 'Proxima Nova', 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
@@ -133,7 +155,7 @@ body {
   z-index: 999;
   background: #fafafa;
   backdrop-filter: blur(10px);
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.25s ease-in-out;
   will-change: transform;
 }
 
@@ -141,17 +163,60 @@ body {
   transform: translateY(-100%) !important;
   z-index: 999 !important;
 }
-.header-inner { display: flex; align-items: center; justify-content: space-between; height: 100px; padding: 0 80px; }
+
+.site-header.header-hidden .menu-toggler {
+  transform: translateY(-120%) !important;
+  transition: transform 0.25s ease-in-out !important;
+}
+
+/* Move hamburger with header when hidden */
+body.header-hidden .menu-toggler {
+  transform: translateY(-200%) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: transform 0.25s ease-in-out, opacity 0.2s ease-in-out !important;
+}
+.header-inner { 
+  display: flex; 
+  align-items: center; 
+  justify-content: flex-start; 
+  padding: 25px 80px; 
+  position: relative; 
+  margin: 0 auto; 
+  max-width: none; 
+  width: 100%;
+  font-size: 0;
+  line-height: 0;
+}
+.header-spacer { flex: 1; }
 .logo { 
   color: var(--text); 
   text-decoration: none; 
   font-weight: 700; 
   letter-spacing: 1px; 
-  font-size: 50px; 
+  font-size: 50px !important; 
   padding: 12px 0; 
   font-family: 'Proxima Nova', sans-serif;
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  text-align: left !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+}
+
+/* Camera icon spin animation on page load */
+.header-inner svg {
+  animation: cameraSpin 2s ease-out;
+}
+
+@keyframes cameraSpin {
+  0% { 
+    transform: rotate(0deg); 
+  }
+  100% { 
+    transform: rotate(-1440deg); /* 4 full rotations counter-clockwise (4 * -360deg) */
+  }
 }
 .logo span { color: var(--accent); }
 .nav a { color: var(--muted); text-decoration: none; margin-left: 20px; }
@@ -373,7 +438,7 @@ body {
   .masonry { column-count: 1; column-gap: 0; padding: 0 20px; }
   .filterbar { padding: 0 20px; margin: 0 auto 30px auto; }
   .site-footer { padding: 20px 20px; }
-  .header-inner { padding: 0 20px; }
+  .header-inner { padding: 20px; }
   #image-counter { padding: 20px 20px 40px 20px !important; }
   #image-counter::before { left: 20px; right: 20px; }
   .menu-toggler { right: 20px !important; }
@@ -383,7 +448,7 @@ body {
 @media (min-width: 1600px) {
   .masonry { padding: 0 100px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 100px; margin: 0 auto 40px auto; max-width: none; }
-  .header-inner { padding: 0 100px; }
+  .header-inner { padding: 25px 100px; }
   #image-counter { padding: 20px 100px 40px 100px !important; }
   #image-counter::before { left: 100px; right: 100px; }
   .site-footer { padding: 20px 100px; }
@@ -393,7 +458,7 @@ body {
 @media (min-width: 1200px) and (max-width: 1599px) {
   .masonry { padding: 0 80px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 80px; margin: 0 auto 40px auto; max-width: none; }
-  .header-inner { padding: 0 80px; }
+  .header-inner { padding: 25px 80px; }
   #image-counter { padding: 20px 80px 40px 80px !important; }
   #image-counter::before { left: 80px; right: 80px; }
   .site-footer { padding: 20px 80px; }
@@ -403,7 +468,7 @@ body {
 @media (min-width: 900px) and (max-width: 1199px) {
   .masonry { padding: 0 60px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 60px; margin: 0 auto 40px auto; max-width: none; }
-  .header-inner { padding: 0 60px; }
+  .header-inner { padding: 25px 60px; }
   #image-counter { padding: 20px 60px 40px 60px !important; }
   #image-counter::before { left: 60px; right: 60px; }
   .site-footer { padding: 20px 60px; }
@@ -413,7 +478,7 @@ body {
 @media (min-width: 600px) and (max-width: 899px) {
   .masonry { padding: 0 40px; margin: 0 auto; max-width: none; }
   .filterbar { padding: 0 40px; margin: 0 auto 40px auto; max-width: none; }
-  .header-inner { padding: 0 40px; }
+  .header-inner { padding: 25px 40px; }
   #image-counter { padding: 20px 40px 40px 40px !important; }
   #image-counter::before { left: 40px; right: 40px; }
   .site-footer { padding: 20px 40px; }
@@ -473,9 +538,9 @@ body {
 .menu-toggler {
   position: fixed;
   right: 70px !important;
-  top: 20px;
-  width: 60px;
-  height: 60px;
+  top: 37px;
+  width: 50px;
+  height: 50px;
   background: transparent;
   z-index: 1000;
   display: flex;
@@ -490,17 +555,25 @@ body {
 .menu-toggler-line {
   width: 60%;
   height: 3px;
-  background: #000;
-  margin: 0 0 10px 0px !important;
+  background: #000000 !important;
+  background-color: #000000 !important;
+  color: #000000 !important;
+  margin: 0 0 8px 0px !important;
   padding: 0 !important;
   position: relative;
   transition: all .40s ease-out;
+  opacity: 1 !important;
+  filter: none !important;
 }
 
 .input-toggler:checked ~ .menu-toggler .menu-toggler-line {
   top: 5px;
   transform: translateY(0px) rotate(45deg);
-  background: #fff;
+  background: #000000 !important;
+  background-color: #000000 !important;
+  color: #000000 !important;
+  opacity: 1 !important;
+  filter: none !important;
 }
 
 .input-toggler:checked ~ .menu-toggler .menu-toggler-line:nth-child(2) {
@@ -510,7 +583,11 @@ body {
 .input-toggler:checked ~ .menu-toggler .menu-toggler-line:nth-child(3) {
   top: -5px;
   transform: translateY(0px) rotate(-45deg);
-  background: #fff;
+  background: #000000 !important;
+  background-color: #000000 !important;
+  color: #000000 !important;
+  opacity: 1 !important;
+  filter: none !important;
 }
 
 /* Sidebar Menu Styles */
@@ -585,29 +662,158 @@ body:has(#lightbox[style*="display: flex"]) .menu-toggler {
   display: none !important;
 }
 
-/* Simple 3D Hover Effect for Lightbox Image */
-.lightbox-image-container {
-  perspective: 800px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-.lightbox-image-3d {
-  transform-style: preserve-3d;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  backface-visibility: hidden;
-  transform: translate3d(0, 0, 0);
-  border-radius: 0;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.lightbox-image-3d:hover {
-  max-height: calc(100vh - 40px) !important;
-  height: calc(100vh - 40px) !important;
+/* Lightbox Image Hover Effect */
+#lightbox-img {
+  max-height: calc(100vh - 140px) !important;
+  height: auto !important;
   width: auto !important;
   object-fit: contain !important;
+  transition: max-height 0.18s ease;
+  cursor: pointer;
+}
+
+#lightbox #lightbox-img:hover {
+  max-height: 100vh !important;
+}
+
+/* Interactive Arrow Button Effects */
+#lightbox-prev, #lightbox-next {
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  opacity: 0.9 !important;
+  z-index: 1101 !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+  width: 48px !important;
+  height: 48px !important;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15)) !important;
+}
+
+#lightbox-prev {
+  left: 20px !important;
+}
+
+#lightbox-next {
+  right: 20px !important;
+}
+
+#lightbox-prev svg, #lightbox-next svg {
+  fill: #000000 !important;
+  color: #000000 !important;
+  opacity: 1 !important;
+}
+
+#lightbox-prev:hover, #lightbox-next:hover,
+#lightbox-prev:focus, #lightbox-next:focus {
+  transform: translateY(-50%) scale(1.1);
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.25));
+  opacity: 1;
+  animation-fill-mode: forwards;
+}
+
+#lightbox-prev:hover svg, #lightbox-next:hover svg,
+#lightbox-prev:focus svg, #lightbox-next:focus svg {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+/* Active state maintains hover scale but adds click feedback */
+#lightbox-prev:active, #lightbox-next:active {
+  transform: translateY(-50%) scale(1.05);
+  filter: drop-shadow(0 6px 16px rgba(0,0,0,0.3));
+  transition: transform 0.05s ease, filter 0.05s ease;
+}
+
+/* Arrow-specific hover animations with persistence */
+#lightbox-prev:hover {
+  animation: arrowBounceLeft 0.8s ease-in-out forwards;
+}
+
+#lightbox-next:hover {
+  animation: arrowBounceRight 0.8s ease-in-out forwards;
+}
+
+/* Enhanced bounce animations that maintain final state */
+@keyframes arrowBounceLeft {
+  0% { transform: translateY(-50%) translateX(0) scale(1.1); }
+  30% { transform: translateY(-50%) translateX(-10px) scale(1.15); }
+  60% { transform: translateY(-50%) translateX(-3px) scale(1.12); }
+  100% { transform: translateY(-50%) translateX(0) scale(1.1); }
+}
+
+@keyframes arrowBounceRight {
+  0% { transform: translateY(-50%) translateX(0) scale(1.1); }
+  30% { transform: translateY(-50%) translateX(10px) scale(1.15); }
+  60% { transform: translateY(-50%) translateX(3px) scale(1.12); }
+  100% { transform: translateY(-50%) translateX(0) scale(1.1); }
+}
+
+/* Close button interactive effects */
+#lightbox-close {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  width: 48px !important;
+  height: 48px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: none !important;
+  opacity: 1 !important;
+  position: absolute !important;
+  top: 20px !important;
+  right: 20px !important;
+  z-index: 1102 !important;
+  cursor: pointer !important;
+}
+
+#lightbox-close svg {
+  fill: #000000 !important;
+  width: 48px !important;
+  height: 48px !important;
+}
+
+#lightbox-close:hover {
+  transform: scale(1.1) rotate(90deg);
+}
+
+#lightbox-close:active {
+  transform: scale(0.9) rotate(90deg);
+  transition: transform 0.1s ease;
+}
+
+/* Responsive lightbox button positioning to match gallery padding */
+@media (min-width: 1600px) {
+  #lightbox-close { right: 100px !important; }
+  #lightbox-prev { left: 100px !important; }
+  #lightbox-next { right: 100px !important; }
+}
+
+@media (min-width: 1200px) and (max-width: 1599px) {
+  #lightbox-close { right: 80px !important; }
+  #lightbox-prev { left: 80px !important; }
+  #lightbox-next { right: 80px !important; }
+}
+
+@media (min-width: 900px) and (max-width: 1199px) {
+  #lightbox-close { right: 60px !important; }
+  #lightbox-prev { left: 60px !important; }
+  #lightbox-next { right: 60px !important; }
+}
+
+@media (min-width: 600px) and (max-width: 899px) {
+  #lightbox-close { right: 40px !important; }
+  #lightbox-prev { left: 40px !important; }
+  #lightbox-next { right: 40px !important; }
+}
+
+@media (max-width: 599px) {
+  #lightbox-close { right: 20px !important; }
+  #lightbox-prev { left: 20px !important; }
+  #lightbox-next { right: 20px !important; }
 }
 
 
@@ -663,14 +869,6 @@ body:has(#lightbox[style*="display: flex"]) .menu-toggler {
   background: #f5f5f5;
 }
 
-/* Logo Styles */
-.logo {
-  font-size: 36px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: var(--text);
-  text-decoration: none;
-}
 
 /* Gallery Grid Styles */
 #gallery-grid {
