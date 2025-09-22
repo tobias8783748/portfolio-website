@@ -415,15 +415,15 @@ body.header-hidden .menu-toggler {
 
 /* Responsive masonry grid - expands unlimited on larger screens */
 @media (min-width: 1600px) {
-  .masonry { column-count: 6; column-gap: 0; }
+  .masonry { column-count: 3; column-gap: 0; }
 }
 
 @media (min-width: 1400px) and (max-width: 1599px) {
-  .masonry { column-count: 5; column-gap: 0; }
+  .masonry { column-count: 3; column-gap: 0; }
 }
 
 @media (min-width: 1200px) and (max-width: 1399px) {
-  .masonry { column-count: 4; column-gap: 0; }
+  .masonry { column-count: 3; column-gap: 0; }
 }
 
 @media (min-width: 900px) and (max-width: 1199px) {
