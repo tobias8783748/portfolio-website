@@ -187,6 +187,7 @@ body.header-hidden .menu-toggler {
   width: 100%;
   font-size: 0;
   line-height: 0;
+  gap: 8px; /* keep spacing between icon and text */
 }
 .header-spacer { flex: 1; }
 .logo { 
@@ -212,38 +213,20 @@ body.header-hidden .menu-toggler {
   will-change: transform, filter;
 }
 .header-inner svg { 
-  transition: transform 0.12s ease, filter 0.12s ease; 
-  transform-origin: left center; /* scale away from text */
+  transition: filter 0.12s ease; 
   margin-right: 8px !important;
 }
-.header-inner .logo { 
-  transform-origin: right center; /* scale away from icon */
-}
 .header-inner svg { transition: transform 0.12s ease, filter 0.12s ease; }
-.header-inner .logo:hover,
+.header-inner .logo:hover {
+  transform: scale(1.04);
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.08));
+}
 .header-inner svg:hover {
-  transform: scale(1.04);
   filter: drop-shadow(0 2px 6px rgba(0,0,0,0.08));
 }
-/* Hovering either element animates both simultaneously */
-.header-inner:has(.logo:hover) .logo,
-.header-inner:has(.logo:hover) svg,
-.header-inner:has(svg:hover) .logo,
-.header-inner:has(svg:hover) svg {
-  transform: scale(1.04);
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.08));
-}
-.header-inner .logo:active,
-.header-inner svg:active {
-  transform: scale(0.98);
-}
-/* Clicking either applies active to both */
-.header-inner:has(.logo:active) .logo,
-.header-inner:has(.logo:active) svg,
-.header-inner:has(svg:active) .logo,
-.header-inner:has(svg:active) svg {
-  transform: scale(0.98);
-}
+/* If hovering the icon, scale only the text to keep spacing and avoid affecting spin */
+.header-inner:has(svg:hover) .logo { transform: scale(1.04); }
+.header-inner .logo:active { transform: scale(0.98); }
 
 /* Camera icon spin animation on page load */
 .header-inner svg {
