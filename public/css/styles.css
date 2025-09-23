@@ -742,7 +742,7 @@ body.header-hidden .menu-toggler {
 .menu-link:hover,
 .menu-link:focus,
 .menu-link:active {
-  color: Gold;
+  color: #87CEEB;
 }
 
 .input-toggler:checked ~ .sidebar {
