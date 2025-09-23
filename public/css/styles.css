@@ -19,15 +19,9 @@
 .about-social li:hover:nth-child(1) a{ background: #3b5998; }
 .about-social li:hover:nth-child(1) a:before{ background: #365492; }
 .about-social li:hover:nth-child(1) a:after{ background: #4a69ad; }
-.about-social li:hover:nth-child(2) a{ background: #00aced; }
-.about-social li:hover:nth-child(2) a:before{ background: #097aa5; }
-.about-social li:hover:nth-child(2) a:after{ background: #53b9e0; }
-.about-social li:hover:nth-child(3) a{ background: #dd4b39; }
-.about-social li:hover:nth-child(3) a:before{ background: #b33a2b; }
-.about-social li:hover:nth-child(3) a:after{ background: #e66a5a; }
-.about-social li:hover:nth-child(4) a{ background: #e4405f; }
-.about-social li:hover:nth-child(4) a:before{ background: #d81c3f; }
-.about-social li:hover:nth-child(4) a:after{ background: #e46880; }
+.about-social li:hover:nth-child(2) a{ background: #e4405f; }
+.about-social li:hover:nth-child(2) a:before{ background: #d81c3f; }
+.about-social li:hover:nth-child(2) a:after{ background: #e46880; }
 /* Import Proxima Nova font */
 @import url('https://fonts.googleapis.com/css2?family=Proxima+Nova:wght@300;400;500;600;700&display=swap');
 
