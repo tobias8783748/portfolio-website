@@ -272,7 +272,7 @@ body.header-hidden .menu-toggler {
 
 /* Dropdown */
 .nav { display: flex; align-items: center; gap: 16px; }
-.dropdown { position: relative; display: inline-block; width: max-content; min-width: 130px; }
+.dropdown { position: relative; display: inline-block; width: max-content; min-width: 120px; }
 /* Make the Japan dropdown toggle match filter buttons (width/padding/typography) */
 .dropdown-toggle { 
   background: transparent; 
@@ -290,7 +290,7 @@ body.header-hidden .menu-toggler {
   gap: 6px; 
   /* width synced with dropdown via container */
   width: 100%;
-  min-width: 130px;
+  min-width: 120px;
 }
 .dropdown-toggle:hover { background: #f5f5f5; color: var(--text); transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
 /* Keep toggle hover style active while interacting with dropdown menu */
