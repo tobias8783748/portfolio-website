@@ -413,6 +413,14 @@ body.header-hidden .menu-toggler {
   outline: none !important;
 }
 
+/* Restore vertical gaps for masonry cards with higher specificity than the reset above */
+#gallery-grid.masonry .card {
+  margin-bottom: 20px !important;
+  -webkit-column-break-inside: avoid;
+  -moz-column-break-inside: avoid;
+  break-inside: avoid;
+}
+
 /* Responsive masonry grid - 3 columns for large screens */
 @media (min-width: 1200px) {
   .masonry { column-count: 3 !important; column-gap: 20px; }
