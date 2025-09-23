@@ -110,12 +110,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Hide the dropdown menu immediately after selecting a region
       const dropdown = target.closest('.dropdown');
       if (dropdown) {
-        const menu = dropdown.querySelector('.dropdown-menu');
-        if (menu) {
-          menu.style.display = 'none';
-          // Clear the inline style shortly after so hover behavior works again
-          setTimeout(() => { menu.style.display = ''; }, 200);
-        }
+        dropdown.classList.add('closing');
+        const onLeave = (ev) => {
+          if (!dropdown.contains(ev.relatedTarget)) {
+            dropdown.classList.remove('closing');
+            dropdown.removeEventListener('mouseleave', onLeave);
+          }
+        };
+        dropdown.addEventListener('mouseleave', onLeave);
       }
       return;
     }
