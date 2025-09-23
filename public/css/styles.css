@@ -19,23 +19,21 @@
 .about-social li:hover:nth-child(1) a{ background: #3b5998; }
 .about-social li:hover:nth-child(1) a:before{ background: #365492; }
 .about-social li:hover:nth-child(1) a:after{ background: #4a69ad; }
+.about-social li:nth-child(2) {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  background-size: 200% 200%;
+  background-position: 0% 0%;
+  padding: 5px;
+  border-radius: 5px;
+}
 .about-social li:hover:nth-child(2) a, .about-social li:nth-child(2) a:active{ 
-  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important; 
-  background-size: 400% 400% !important;
-  background-position: -50% -50% !important;
-  background-attachment: fixed !important;
+  background: transparent !important; 
 }
 .about-social li:hover:nth-child(2) a:before, .about-social li:nth-child(2) a:active:before{ 
-  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important; 
-  background-size: 400% 400% !important;
-  background-position: -50% -50% !important;
-  background-attachment: fixed !important;
+  background: transparent !important; 
 }
 .about-social li:hover:nth-child(2) a:after, .about-social li:nth-child(2) a:active:after{ 
-  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important; 
-  background-size: 400% 400% !important;
-  background-position: -50% -50% !important;
-  background-attachment: fixed !important;
+  background: transparent !important; 
 }
 /* Import Proxima Nova font */
 @import url('https://fonts.googleapis.com/css2?family=Proxima+Nova:wght@300;400;500;600;700&display=swap');
