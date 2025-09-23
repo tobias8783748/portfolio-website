@@ -241,7 +241,9 @@ body.header-hidden .menu-toggler {
 }
 .dropdown-toggle:hover { background: #f5f5f5; color: var(--text); transform: none; box-shadow: none; }
 /* Make the dropdown menu match the toggle width */
-.dropdown-menu { position: absolute; top: 100%; left: 0; right: auto; background: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); padding: 8px; display: none; width: 100%; min-width: 0; z-index: 100; box-sizing: border-box; }
+.dropdown-menu { position: static; background: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-radius: 0 0 6px 6px; box-shadow: none; padding: 8px; display: none; width: 100%; min-width: 0; box-sizing: border-box; }
+.dropdown:hover .dropdown-toggle { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.dropdown:hover .dropdown-menu { display: block; border-top: none; }
 .dropdown:hover .dropdown-menu { display: block; }
 .dropdown-menu a { display: block; padding: 8px 16px; color: #111111; text-decoration: none; border-radius: 6px; margin: 0; font-size: 14px; }
 .dropdown-menu a:hover { background: #f3f4f6; }
