@@ -864,9 +864,7 @@ body:has(#lightbox[style*="display: flex"]) .menu-toggler {
 
 /* Gallery Grid Styles */
 #gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+  display: block; /* use Masonry columns via .masonry */
   margin-bottom: 40px;
 }
 
@@ -920,10 +918,7 @@ body:has(#lightbox[style*="display: flex"]) .menu-toggler {
     text-align: center;
   }
   
-  #gallery-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
+  /* Masonry handles columns on small screens via media queries above */
   
   .logo {
     font-size: 30px;
