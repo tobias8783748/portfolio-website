@@ -901,25 +901,20 @@ body:has(#lightbox[style*="display: flex"]) .menu-toggler {
 /* Sliding underline on dropdown items (no grey background) */
 .dropdown-menu a,
 .dropdown-item {
+  /* center the inline item and animate underline sized to text */
+  display: inline-block !important;
+  width: auto !important;
   position: relative;
   overflow: visible;
+  background-image: linear-gradient(#111111, #111111);
+  background-size: 0 2px;
+  background-position: 50% 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.2s ease;
 }
-.dropdown-menu a::after,
-.dropdown-item::after {
-  content: '';
-  position: absolute;
-  left: 16px;  /* match horizontal padding */
-  right: 16px; /* match horizontal padding */
-  bottom: 8px;
-  height: 2px;
-  background: #111111;
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.2s ease;
-}
-.dropdown-menu a:hover::after,
-.dropdown-item:hover::after {
-  transform: scaleX(1);
+.dropdown-menu a:hover,
+.dropdown-item:hover {
+  background-size: 100% 2px;
 }
 
 
