@@ -246,6 +246,12 @@ body.header-hidden .menu-toggler {
 .dropdown:hover .dropdown-menu { display: block; }
 .dropdown:hover .dropdown-menu { display: block; }
 .dropdown-menu a { display: block; padding: 8px 16px; color: #111111; text-decoration: none; border-radius: 6px; margin: 0; font-size: 14px; }
+.dropdown-menu,
+.dropdown-menu a,
+.dropdown-item {
+  text-align: left !important;
+  justify-content: flex-start;
+}
 .dropdown-menu a:hover { background: #f3f4f6; }
 
 .hero {
