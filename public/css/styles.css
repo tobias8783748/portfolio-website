@@ -314,7 +314,7 @@ body.header-hidden .menu-toggler {
 /* Keep menu hidden until cursor leaves when closing */
 .dropdown.closing .dropdown-menu { display: none !important; pointer-events: none; }
 .dropdown:hover .dropdown-menu { display: block; }
-.dropdown-menu a { display: block; padding: 8px 16px; color: #111111; text-decoration: none; border-radius: 6px; margin: 0; font-size: 14px; }
+.dropdown-menu a { display: block; padding: 8px 8px; color: #111111; text-decoration: none; border-radius: 6px; margin: 0; font-size: 14px; }
 .dropdown-menu { text-align: center; }
 /* Force dropdown items to stack vertically and fill width */
 .dropdown-menu a,
@@ -324,8 +324,8 @@ body.header-hidden .menu-toggler {
   display: block !important;
   width: 100% !important;
   text-align: center !important;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 .dropdown-menu a:hover { background: #f3f4f6; }
 
@@ -976,7 +976,7 @@ body:has(#lightbox[style*="display: flex"]) .menu-toggler {
   background: transparent;
   border: none;
   color: var(--text);
-  padding: 8px 16px;
+  padding: 8px 8px;
   cursor: pointer;
   font-size: 14px;
   transition: background-color 0.2s;
