@@ -211,13 +211,29 @@ body.header-hidden .menu-toggler {
 .header-inner svg {
   will-change: transform, filter;
 }
+.header-inner svg { transition: transform 0.12s ease, filter 0.12s ease; }
 .header-inner .logo:hover,
 .header-inner svg:hover {
   transform: scale(1.04);
   filter: drop-shadow(0 2px 6px rgba(0,0,0,0.08));
 }
+/* Hovering either element animates both simultaneously */
+.header-inner:has(.logo:hover) .logo,
+.header-inner:has(.logo:hover) svg,
+.header-inner:has(svg:hover) .logo,
+.header-inner:has(svg:hover) svg {
+  transform: scale(1.04);
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.08));
+}
 .header-inner .logo:active,
 .header-inner svg:active {
+  transform: scale(0.98);
+}
+/* Clicking either applies active to both */
+.header-inner:has(.logo:active) .logo,
+.header-inner:has(.logo:active) svg,
+.header-inner:has(svg:active) .logo,
+.header-inner:has(svg:active) svg {
   transform: scale(0.98);
 }
 
