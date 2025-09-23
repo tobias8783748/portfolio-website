@@ -289,11 +289,14 @@ body.header-hidden .menu-toggler {
 .dropdown:hover .dropdown-menu { display: block; }
 .dropdown-menu a { display: block; padding: 8px 16px; color: #111111; text-decoration: none; border-radius: 6px; margin: 0; font-size: 14px; }
 .dropdown-menu { text-align: center; }
+/* Force dropdown items to stack vertically and fill width */
 .dropdown-menu a,
-.dropdown-item {
-  display: block;
+.dropdown-item,
+.dropdown .dropdown-menu .dropdown-item,
+.dropdown .dropdown-menu a {
+  display: block !important;
+  width: 100% !important;
   text-align: center !important;
-  width: 100%;
   padding-left: 16px;
   padding-right: 16px;
 }
