@@ -895,7 +895,31 @@ body:has(#lightbox[style*="display: flex"]) .menu-toggler {
 }
 
 .dropdown-item:hover {
-  background: #f5f5f5;
+  background: transparent !important;
+}
+
+/* Sliding underline on dropdown items (no grey background) */
+.dropdown-menu a,
+.dropdown-item {
+  position: relative;
+  overflow: visible;
+}
+.dropdown-menu a::after,
+.dropdown-item::after {
+  content: '';
+  position: absolute;
+  left: 16px;  /* match horizontal padding */
+  right: 16px; /* match horizontal padding */
+  bottom: 8px;
+  height: 2px;
+  background: #111111;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.2s ease;
+}
+.dropdown-menu a:hover::after,
+.dropdown-item:hover::after {
+  transform: scaleX(1);
 }
 
 
