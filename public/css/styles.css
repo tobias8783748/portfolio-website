@@ -272,13 +272,13 @@ body.header-hidden .menu-toggler {
 
 /* Dropdown */
 .nav { display: flex; align-items: center; gap: 16px; }
-.dropdown { position: relative; display: inline-block; width: max-content; min-width: 120px; }
+.dropdown { position: relative; display: inline-block; width: max-content; min-width: 100px; }
 /* Make the Japan dropdown toggle match filter buttons (width/padding/typography) */
 .dropdown-toggle { 
   background: transparent; 
   border: 1px solid rgba(0,0,0,0.1); 
   color: var(--muted); 
-  padding: 8px 16px; 
+  padding: 8px 12px; 
   border-radius: 6px; 
   font-size: 14px; 
   transition: all 0.3s ease; 
@@ -290,7 +290,7 @@ body.header-hidden .menu-toggler {
   gap: 6px; 
   /* width synced with dropdown via container */
   width: 100%;
-  min-width: 120px;
+  min-width: 100px;
 }
 .dropdown-toggle:hover { background: #f5f5f5; color: var(--text); transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
 /* Keep toggle hover style active while interacting with dropdown menu */
@@ -314,7 +314,7 @@ body.header-hidden .menu-toggler {
 /* Keep menu hidden until cursor leaves when closing */
 .dropdown.closing .dropdown-menu { display: none !important; pointer-events: none; }
 .dropdown:hover .dropdown-menu { display: block; }
-.dropdown-menu a { display: block; padding: 8px 16px; color: #111111; text-decoration: none; border-radius: 6px; margin: 0; font-size: 14px; }
+.dropdown-menu a { display: block; padding: 8px 12px; color: #111111; text-decoration: none; border-radius: 6px; margin: 0; font-size: 14px; }
 .dropdown-menu { text-align: center; }
 /* Force dropdown items to stack vertically and fill width */
 .dropdown-menu a,
