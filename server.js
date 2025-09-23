@@ -135,20 +135,28 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Favicon fallback route
+// Favicon routes
+app.get('/favicon.svg', (req, res) => {
+    const svgPath = path.join(__dirname, 'public', 'favicon.svg');
+    if (fs.existsSync(svgPath)) {
+        res.type('image/svg+xml');
+        res.sendFile(svgPath);
+    } else {
+        res.status(404).send('favicon.svg not found');
+    }
+});
+
 app.get('/favicon.ico', (req, res) => {
-	// Serve camera.svg as favicon if favicon.ico doesn't exist
-	const faviconPath = path.join(__dirname, 'public', 'favicon.ico');
-	const cameraSvgPath = path.join(__dirname, 'public', 'images', 'camera.svg');
-	
-	if (fs.existsSync(faviconPath)) {
-		res.sendFile(faviconPath);
-	} else if (fs.existsSync(cameraSvgPath)) {
-		res.type('image/svg+xml');
-		res.sendFile(cameraSvgPath);
-	} else {
-		res.status(404).send('Favicon not found');
-	}
+    const icoPath = path.join(__dirname, 'public', 'favicon.ico');
+    const svgPath = path.join(__dirname, 'public', 'favicon.svg');
+    if (fs.existsSync(icoPath)) {
+        res.sendFile(icoPath);
+    } else if (fs.existsSync(svgPath)) {
+        res.type('image/svg+xml');
+        res.sendFile(svgPath);
+    } else {
+        res.status(404).send('Favicon not found');
+    }
 });
 
 // Portrait image route for production reliability
