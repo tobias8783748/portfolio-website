@@ -946,8 +946,8 @@ body:has(#lightbox[style*="display: flex"]) .menu-toggler {
   position: absolute;
   left: 50%;
   bottom: 6px;
-  height: 2px;
-  width: 100%;
+  height: 1px;
+  width: 60%;
   background: #111111;
   transform: translateX(-50%) scaleX(0);
   transform-origin: center;
