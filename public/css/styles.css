@@ -11,7 +11,7 @@
 .about-social li { list-style: none; margin: 0 5px; }
 .about-social li a { text-decoration: none; display: block; width: 210px; height: 80px; background: #fff; text-align: left; padding-left: 20px; transform: rotate(-30deg) skew(25deg) translate(0,0); transition: .5s; box-shadow: -20px 20px 10px rgba(0,0,0,.15); position: relative; }
 .about-social li a .fa { font-size: 40px; color: #262626; line-height: 80px; transition: .5s; padding-right: 14px; }
-.about-social li a span { position: absolute; top: 30px; color: #262626; letter-spacing: 4px; transition: .5s; }
+.about-social li a span { position: absolute; top: 30px; color: #262626; letter-spacing: 4px; transition: .5s; font-family: 'Proxima Nova', sans-serif; }
 .about-social li a:before { content: ''; position: absolute; top: 10px; left: -20px; height: 100%; width: 20px; background: #b1b1b1; transform: rotate(0deg) skewY(-45deg); }
 .about-social li a:after { content: ''; position: absolute; bottom: -20px; left: -10px; height: 20px; width: 100%; background: #b1b1b1; transform: rotate(0deg) skewX(-45deg); }
 .about-social li a:hover { transform: rotate(-30deg) skew(25deg) translate(20px,-15px); box-shadow: -50px 50px 50px rgba(0,0,0,.2); }
