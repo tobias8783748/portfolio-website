@@ -186,6 +186,48 @@ class SlidingGallery {
         this.resumeAutoPlay();
       });
     }
+    
+    // Lightbox event listeners
+    this.setupLightboxEventListeners();
+  }
+  
+  setupLightboxEventListeners() {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const lightboxPrev = document.getElementById('lightbox-prev');
+    const lightboxNext = document.getElementById('lightbox-next');
+    
+    if (lightboxClose) {
+      lightboxClose.addEventListener('click', () => {
+        this.closeLightbox();
+      });
+    }
+    
+    if (lightbox) {
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+          this.closeLightbox();
+        }
+      });
+    }
+    
+    // Add keyboard support
+    document.addEventListener('keydown', (e) => {
+      if (lightbox && lightbox.style.display === 'flex') {
+        if (e.key === 'Escape') {
+          this.closeLightbox();
+        }
+      }
+    });
+  }
+  
+  closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox) {
+      lightbox.style.display = 'none';
+      document.body.style.overflow = '';
+      console.log('Closed lightbox');
+    }
   }
 
   pauseAutoPlay() {
@@ -200,10 +242,29 @@ class SlidingGallery {
 
   openLightbox(photo) {
     // Open lightbox with the photo
-    if (window.openLightbox) {
-      window.openLightbox(photo);
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxLocation = document.getElementById('lightbox-location');
+    const lightboxDescription = document.getElementById('lightbox-description');
+    
+    if (lightbox && lightboxImg) {
+      lightboxImg.src = photo.src;
+      lightboxImg.alt = photo.location || '';
+      
+      if (lightboxLocation) {
+        lightboxLocation.textContent = photo.location || '';
+      }
+      
+      if (lightboxDescription) {
+        lightboxDescription.textContent = photo.description || '';
+      }
+      
+      lightbox.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      
+      console.log('Opened lightbox for photo:', photo.location);
     } else {
-      console.log('Lightbox not available');
+      console.log('Lightbox elements not found');
     }
   }
 
