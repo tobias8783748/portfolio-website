@@ -25,12 +25,10 @@
   background-position: 0% 0% !important;
 }
 .about-social li:hover:nth-child(2) a:before, .about-social li:nth-child(2) a:active:before{ 
-  background: linear-gradient(45deg, #d67c2a 0%, #d15a33 25%, #c41e3a 50%, #b41a5c 75%, #a41575 100%) !important; 
-  background-size: 300% 300% !important;
+  background: #dc2743 !important; 
 }
 .about-social li:hover:nth-child(2) a:after, .about-social li:nth-child(2) a:active:after{ 
-  background: linear-gradient(45deg, #e6a366 0%, #e47a4f 25%, #e04a5c 50%, #d43a73 75%, #c82a8a 100%) !important; 
-  background-size: 300% 300% !important;
+  background: #cc2366 !important; 
 }
 /* Import Proxima Nova font */
 @import url('https://fonts.googleapis.com/css2?family=Proxima+Nova:wght@300;400;500;600;700&display=swap');
