@@ -141,7 +141,7 @@ body {
   background: #fafafa;
   color: var(--text);
   overflow-x: hidden;
-  padding-top: 100px;
+  padding-top: 84px;
 }
 
 .container { width: 100%; max-width: none; margin: 0 auto; padding: 0 20px; }
@@ -180,7 +180,7 @@ body.header-hidden .menu-toggler {
   display: flex; 
   align-items: center; 
   justify-content: flex-start; 
-  padding: 25px 80px; 
+  padding: 18px 80px; 
   position: relative; 
   margin: 0 auto; 
   max-width: none; 
@@ -590,7 +590,7 @@ body.header-hidden .menu-toggler {
 .menu-toggler {
   position: fixed;
   right: 70px !important;
-  top: 37px;
+  top: 30px;
   width: 50px;
   height: 50px;
   background: transparent;
