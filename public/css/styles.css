@@ -262,9 +262,9 @@ body.header-hidden .menu-toggler {
   align-items: center; 
   gap: 6px; 
 }
-.dropdown-toggle:hover { background: #f5f5f5; color: var(--text); transform: none; box-shadow: none; }
+.dropdown-toggle:hover { background: #f5f5f5; color: var(--text); transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
 /* Keep toggle hover style active while interacting with dropdown menu */
-.dropdown:hover .dropdown-toggle { background: #f5f5f5; color: var(--text); transform: none; box-shadow: none; }
+.dropdown:hover .dropdown-toggle { background: #f5f5f5; color: var(--text); transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
 /* Make the dropdown menu match the toggle width */
 .dropdown-menu { position: absolute; top: 100%; left: 0; right: auto; background: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); padding: 8px; display: none; width: 100%; min-width: 0; z-index: 100; box-sizing: border-box; }
 /* Show on hover */
