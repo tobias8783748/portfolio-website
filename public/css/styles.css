@@ -869,17 +869,17 @@ body:has(#lightbox[style*="display: flex"]) .menu-toggler {
 }
 
 #gallery-grid .card {
-  background: white;
-  border: 1px solid rgba(0,0,0,0.1);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
+  transition: none;
   cursor: pointer;
 }
 
 #gallery-grid .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  transform: none;
+  box-shadow: none;
 }
 
 #gallery-grid .card img {
@@ -941,6 +941,16 @@ html body .masonry img {
   margin-left: 0 !important;
   margin-right: 0 !important;
   margin-top: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  transition: none !important;
+}
+
+/* Prevent hover lift in masonry so gaps remain consistent */
+.masonry .card:hover {
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 
