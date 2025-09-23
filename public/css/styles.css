@@ -264,7 +264,7 @@ body.header-hidden .menu-toggler {
 /* Masonry gallery */
 .masonry { 
   column-count: 3 !important; 
-  column-gap: 0; 
+  column-gap: 20px; /* horizontal space between columns */ 
   column-rule: none;
   width: 100%; 
   padding: 0 80px; 
@@ -937,7 +937,7 @@ html body .masonry img {
 
 /* Ensure consistent spacing between all images */
 .masonry .card {
-  margin-bottom: 18px !important;
+  margin-bottom: 20px !important; /* vertical space between items */
   margin-left: 0 !important;
   margin-right: 0 !important;
   margin-top: 0 !important;
