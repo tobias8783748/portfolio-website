@@ -415,19 +415,19 @@ body.header-hidden .menu-toggler {
 
 /* Responsive masonry grid - 3 columns for large screens */
 @media (min-width: 1200px) {
-  .masonry { column-count: 3 !important; column-gap: 0; }
+  .masonry { column-count: 3 !important; column-gap: 20px; }
 }
 
 @media (min-width: 900px) and (max-width: 1199px) {
-  .masonry { column-count: 3 !important; column-gap: 0; }
+  .masonry { column-count: 3 !important; column-gap: 20px; }
 }
 
 @media (min-width: 600px) and (max-width: 899px) {
-  .masonry { column-count: 2; column-gap: 0; }
+  .masonry { column-count: 2; column-gap: 20px; }
 }
 
 @media (max-width: 599px) {
-  .masonry { column-count: 1; column-gap: 0; padding: 0 20px; }
+  .masonry { column-count: 1; column-gap: 20px; padding: 0 20px; }
   .filterbar { padding: 0 20px; margin: 0 auto 30px auto; }
   .site-footer { padding: 20px 20px; }
   .header-inner { padding: 20px; }
