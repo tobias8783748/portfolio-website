@@ -295,6 +295,10 @@ body.header-hidden .menu-toggler {
   max-width: 100%;
   height: auto;
 }
+/* Subtle hover without moving layout */
+.masonry .card:hover img {
+  opacity: 0.95;
+}
 .masonry .card .info { display: none; }
 .masonry .card .location-overlay { 
   position: absolute; 
@@ -388,7 +392,7 @@ body.header-hidden .menu-toggler {
 }
 
 .masonry .card:hover {
-  transform: translateY(-2px);
+  transform: none;
 }
 
 /* Filter bar styling to match header */
