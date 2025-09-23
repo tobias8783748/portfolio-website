@@ -249,8 +249,8 @@ body.header-hidden .menu-toggler {
 .dropdown-menu,
 .dropdown-menu a,
 .dropdown-item {
-  text-align: left !important;
-  justify-content: flex-start;
+  text-align: center !important;
+  justify-content: center;
 }
 .dropdown-menu a:hover { background: #f3f4f6; }
 
