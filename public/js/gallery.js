@@ -144,6 +144,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (activeBtn) {
         activeBtn.setAttribute('aria-current', 'true');
       }
+      // Also mark the Japan dropdown toggle as active when a region is chosen
+      const japanToggle = document.querySelector('.dropdown-toggle[data-country="Japan"]');
+      if (japanToggle) {
+        japanToggle.setAttribute('aria-current', 'true');
+      }
     } else {
       // Otherwise highlight the country/tag button
       const activeBtn = document.querySelector(`[data-country="${currentFilter}"], [data-tag="${currentFilter}"]`);

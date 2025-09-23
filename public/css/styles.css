@@ -916,6 +916,12 @@ body:has(#lightbox[style*="display: flex"]) .menu-toggler {
   color: white;
   border-color: var(--text);
 }
+/* Make the Japan toggle reflect active state just like filter-link */
+.dropdown-toggle[aria-current="true"] {
+  background: var(--text);
+  color: white;
+  border-color: var(--text);
+}
 
 .dropdown-item {
   background: transparent;
