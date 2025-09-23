@@ -1,3 +1,28 @@
+/* About page social links */
+.about-social {
+  position: static;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 30px;
+  padding: 20px 0 10px;
+  margin: 0;
+  margin-left: -80px;
+}
+.about-social li { list-style: none; margin: 0 5px; }
+.about-social li a { text-decoration: none; display: block; width: 210px; height: 80px; background: #fff; text-align: left; padding-left: 20px; transform: rotate(-30deg) skew(25deg) translate(0,0); transition: .5s; box-shadow: -20px 20px 10px rgba(0,0,0,.15); position: relative; }
+.about-social li a .fa { font-size: 40px; color: #262626; line-height: 80px; transition: .5s; padding-right: 14px; }
+.about-social li a span { position: absolute; top: 30px; color: #262626; letter-spacing: 4px; transition: .5s; font-family: 'Proxima Nova', sans-serif; font-size: 14px; }
+.about-social li a:before { content: ''; position: absolute; top: 10px; left: -20px; height: 100%; width: 20px; background: #b1b1b1; transform: rotate(0deg) skewY(-45deg); transition: .5s; }
+.about-social li a:after { content: ''; position: absolute; bottom: -20px; left: -10px; height: 20px; width: 100%; background: #b1b1b1; transform: rotate(0deg) skewX(-45deg); transition: .5s; }
+.about-social li a:hover { transform: rotate(-30deg) skew(25deg) translate(20px,-15px); box-shadow: -50px 50px 50px rgba(0,0,0,.2); }
+.about-social li:hover .fa, .about-social li:hover span { color: #fff; }
+.about-social li:hover:nth-child(1) a{ background: #3b5998; }
+.about-social li:hover:nth-child(1) a:before{ background: #365492; }
+.about-social li:hover:nth-child(1) a:after{ background: #4a69ad; }
+.about-social li:hover:nth-child(2) a{ background: #E1306C; }
+.about-social li:hover:nth-child(2) a:before{ background: #B3275A; }
+.about-social li:hover:nth-child(2) a:after{ background: #F56040; }
 /* Import Proxima Nova font */
 @import url('https://fonts.googleapis.com/css2?family=Proxima+Nova:wght@300;400;500;600;700&display=swap');
 
@@ -247,7 +272,7 @@ body.header-hidden .menu-toggler {
 
 /* Dropdown */
 .nav { display: flex; align-items: center; gap: 16px; }
-.dropdown { position: relative; display: inline-block; width: max-content; }
+.dropdown { position: relative; display: inline-block; width: max-content; min-width: 120px; }
 /* Make the Japan dropdown toggle match filter buttons (width/padding/typography) */
 .dropdown-toggle { 
   background: transparent; 
@@ -265,6 +290,7 @@ body.header-hidden .menu-toggler {
   gap: 6px; 
   /* width synced with dropdown via container */
   width: 100%;
+  min-width: 120px;
 }
 .dropdown-toggle:hover { background: #f5f5f5; color: var(--text); transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
 /* Keep toggle hover style active while interacting with dropdown menu */
@@ -280,7 +306,7 @@ body.header-hidden .menu-toggler {
   box-shadow: none !important;
 }
 /* Make the dropdown menu match the toggle width */
-.dropdown-menu { position: absolute; top: 100%; left: 0; right: auto; background: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); padding: 8px; display: none; width: 100%; min-width: 0; z-index: 100; box-sizing: border-box; }
+.dropdown-menu { position: absolute; top: 100%; left: 0; right: auto; background: #fafafa; border: 1px solid rgba(0,0,0,0.08); border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); padding: 8px; display: none; width: 100%; min-width: 0; z-index: 100; box-sizing: border-box; }
 /* Show on hover */
 .dropdown:hover .dropdown-menu { display: block; }
 /* Allow JS to forcibly hide the dropdown after selection */
@@ -717,7 +743,7 @@ body.header-hidden .menu-toggler {
 .menu-link:hover,
 .menu-link:focus,
 .menu-link:active {
-  color: Gold;
+  color: #87CEEB;
 }
 
 .input-toggler:checked ~ .sidebar {
