@@ -992,8 +992,9 @@ body:has(#lightbox[style*="display: flex"]) .menu-toggler {
 .dropdown-menu a,
 .dropdown-item {
   /* center item and animate underline sized to the text box */
-  display: inline-block !important;
-  width: auto !important;
+  display: block !important;
+  width: 100% !important;
+  text-align: center !important;
   position: relative;
   overflow: visible;
 }
