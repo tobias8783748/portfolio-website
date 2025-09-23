@@ -306,7 +306,7 @@ body.header-hidden .menu-toggler {
   box-shadow: none !important;
 }
 /* Make the dropdown menu match the toggle width */
-.dropdown-menu { position: absolute; top: 100%; left: 0; right: auto; background: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); padding: 8px; display: none; width: 100%; min-width: 0; z-index: 100; box-sizing: border-box; }
+.dropdown-menu { position: absolute; top: 100%; left: 0; right: auto; background: #fafafa; border: 1px solid rgba(0,0,0,0.08); border-radius: 6px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); padding: 8px; display: none; width: 100%; min-width: 0; z-index: 100; box-sizing: border-box; }
 /* Show on hover */
 .dropdown:hover .dropdown-menu { display: block; }
 /* Allow JS to forcibly hide the dropdown after selection */
