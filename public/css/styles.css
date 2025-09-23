@@ -278,7 +278,7 @@ body.header-hidden .menu-toggler {
   background: transparent; 
   border: 1px solid rgba(0,0,0,0.1); 
   color: var(--muted); 
-  padding: 8px 12px; 
+  padding: 10px 10px; 
   border-radius: 6px; 
   font-size: 14px; 
   transition: all 0.3s ease; 
