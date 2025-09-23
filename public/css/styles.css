@@ -211,6 +211,14 @@ body.header-hidden .menu-toggler {
 .header-inner svg {
   will-change: transform, filter;
 }
+.header-inner svg { 
+  transition: transform 0.12s ease, filter 0.12s ease; 
+  transform-origin: left center; /* scale away from text */
+  margin-right: 8px !important;
+}
+.header-inner .logo { 
+  transform-origin: right center; /* scale away from icon */
+}
 .header-inner svg { transition: transform 0.12s ease, filter 0.12s ease; }
 .header-inner .logo:hover,
 .header-inner svg:hover {
